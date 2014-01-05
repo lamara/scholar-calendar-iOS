@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		58A4604618790CA200301D62 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604518790CA200301D62 /* UIKit.framework */; };
+		58A4604818790CA200301D62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604718790CA200301D62 /* Foundation.framework */; };
+		58A4604A18790CA200301D62 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604918790CA200301D62 /* CoreGraphics.framework */; };
+		58A4605018790CA200301D62 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 58A4604E18790CA200301D62 /* InfoPlist.strings */; };
+		58A4605218790CA200301D62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A4605118790CA200301D62 /* main.m */; };
+		58A4605618790CA200301D62 /* SCHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A4605518790CA200301D62 /* SCHAppDelegate.m */; };
+		58A4605818790CA300301D62 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A4605718790CA300301D62 /* Default.png */; };
+		58A4605A18790CA300301D62 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A4605918790CA300301D62 /* Default@2x.png */; };
+		58A4605C18790CA300301D62 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A4605B18790CA300301D62 /* Default-568h@2x.png */; };
+		58A4606418790CA300301D62 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4606318790CA300301D62 /* SenTestingKit.framework */; };
+		58A4606518790CA300301D62 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604518790CA200301D62 /* UIKit.framework */; };
+		58A4606618790CA300301D62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604718790CA200301D62 /* Foundation.framework */; };
+		58A4606E18790CA300301D62 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 58A4606C18790CA300301D62 /* InfoPlist.strings */; };
+		58A4607118790CA300301D62 /* scholar_calendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A4607018790CA300301D62 /* scholar_calendarTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		58A4606718790CA300301D62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58A4603A18790CA200301D62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 58A4604118790CA200301D62;
+			remoteInfo = "scholar calendar";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		58A4604218790CA200301D62 /* scholar calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "scholar calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58A4604518790CA200301D62 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		58A4604718790CA200301D62 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		58A4604918790CA200301D62 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		58A4604D18790CA200301D62 /* scholar calendar-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "scholar calendar-Info.plist"; sourceTree = "<group>"; };
+		58A4604F18790CA200301D62 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		58A4605118790CA200301D62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		58A4605318790CA200301D62 /* scholar calendar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "scholar calendar-Prefix.pch"; sourceTree = "<group>"; };
+		58A4605418790CA200301D62 /* SCHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCHAppDelegate.h; sourceTree = "<group>"; };
+		58A4605518790CA200301D62 /* SCHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCHAppDelegate.m; sourceTree = "<group>"; };
+		58A4605718790CA300301D62 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		58A4605918790CA300301D62 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		58A4605B18790CA300301D62 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		58A4606218790CA300301D62 /* scholar calendarTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "scholar calendarTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58A4606318790CA300301D62 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		58A4606B18790CA300301D62 /* scholar calendarTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "scholar calendarTests-Info.plist"; sourceTree = "<group>"; };
+		58A4606D18790CA300301D62 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		58A4606F18790CA300301D62 /* scholar_calendarTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scholar_calendarTests.h; sourceTree = "<group>"; };
+		58A4607018790CA300301D62 /* scholar_calendarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scholar_calendarTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58A4603F18790CA200301D62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58A4604618790CA200301D62 /* UIKit.framework in Frameworks */,
+				58A4604818790CA200301D62 /* Foundation.framework in Frameworks */,
+				58A4604A18790CA200301D62 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		58A4605E18790CA300301D62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58A4606418790CA300301D62 /* SenTestingKit.framework in Frameworks */,
+				58A4606518790CA300301D62 /* UIKit.framework in Frameworks */,
+				58A4606618790CA300301D62 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		58A4603918790CA200301D62 = {
+			isa = PBXGroup;
+			children = (
+				58A4604B18790CA200301D62 /* scholar calendar */,
+				58A4606918790CA300301D62 /* scholar calendarTests */,
+				58A4604418790CA200301D62 /* Frameworks */,
+				58A4604318790CA200301D62 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		58A4604318790CA200301D62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				58A4604218790CA200301D62 /* scholar calendar.app */,
+				58A4606218790CA300301D62 /* scholar calendarTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58A4604418790CA200301D62 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				58A4604518790CA200301D62 /* UIKit.framework */,
+				58A4604718790CA200301D62 /* Foundation.framework */,
+				58A4604918790CA200301D62 /* CoreGraphics.framework */,
+				58A4606318790CA300301D62 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		58A4604B18790CA200301D62 /* scholar calendar */ = {
+			isa = PBXGroup;
+			children = (
+				58A4605418790CA200301D62 /* SCHAppDelegate.h */,
+				58A4605518790CA200301D62 /* SCHAppDelegate.m */,
+				58A4604C18790CA200301D62 /* Supporting Files */,
+			);
+			path = "scholar calendar";
+			sourceTree = "<group>";
+		};
+		58A4604C18790CA200301D62 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				58A4604D18790CA200301D62 /* scholar calendar-Info.plist */,
+				58A4604E18790CA200301D62 /* InfoPlist.strings */,
+				58A4605118790CA200301D62 /* main.m */,
+				58A4605318790CA200301D62 /* scholar calendar-Prefix.pch */,
+				58A4605718790CA300301D62 /* Default.png */,
+				58A4605918790CA300301D62 /* Default@2x.png */,
+				58A4605B18790CA300301D62 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		58A4606918790CA300301D62 /* scholar calendarTests */ = {
+			isa = PBXGroup;
+			children = (
+				58A4606F18790CA300301D62 /* scholar_calendarTests.h */,
+				58A4607018790CA300301D62 /* scholar_calendarTests.m */,
+				58A4606A18790CA300301D62 /* Supporting Files */,
+			);
+			path = "scholar calendarTests";
+			sourceTree = "<group>";
+		};
+		58A4606A18790CA300301D62 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				58A4606B18790CA300301D62 /* scholar calendarTests-Info.plist */,
+				58A4606C18790CA300301D62 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		58A4604118790CA200301D62 /* scholar calendar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58A4607418790CA300301D62 /* Build configuration list for PBXNativeTarget "scholar calendar" */;
+			buildPhases = (
+				58A4603E18790CA200301D62 /* Sources */,
+				58A4603F18790CA200301D62 /* Frameworks */,
+				58A4604018790CA200301D62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "scholar calendar";
+			productName = "scholar calendar";
+			productReference = 58A4604218790CA200301D62 /* scholar calendar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		58A4606118790CA300301D62 /* scholar calendarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58A4607718790CA300301D62 /* Build configuration list for PBXNativeTarget "scholar calendarTests" */;
+			buildPhases = (
+				58A4605D18790CA300301D62 /* Sources */,
+				58A4605E18790CA300301D62 /* Frameworks */,
+				58A4605F18790CA300301D62 /* Resources */,
+				58A4606018790CA300301D62 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				58A4606818790CA300301D62 /* PBXTargetDependency */,
+			);
+			name = "scholar calendarTests";
+			productName = "scholar calendarTests";
+			productReference = 58A4606218790CA300301D62 /* scholar calendarTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58A4603A18790CA200301D62 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SCH;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Alex Lamar";
+			};
+			buildConfigurationList = 58A4603D18790CA200301D62 /* Build configuration list for PBXProject "scholar calendar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 58A4603918790CA200301D62;
+			productRefGroup = 58A4604318790CA200301D62 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58A4604118790CA200301D62 /* scholar calendar */,
+				58A4606118790CA300301D62 /* scholar calendarTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		58A4604018790CA200301D62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58A4605018790CA200301D62 /* InfoPlist.strings in Resources */,
+				58A4605818790CA300301D62 /* Default.png in Resources */,
+				58A4605A18790CA300301D62 /* Default@2x.png in Resources */,
+				58A4605C18790CA300301D62 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		58A4605F18790CA300301D62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58A4606E18790CA300301D62 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		58A4606018790CA300301D62 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58A4603E18790CA200301D62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58A4605218790CA200301D62 /* main.m in Sources */,
+				58A4605618790CA200301D62 /* SCHAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		58A4605D18790CA300301D62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58A4607118790CA300301D62 /* scholar_calendarTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		58A4606818790CA300301D62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 58A4604118790CA200301D62 /* scholar calendar */;
+			targetProxy = 58A4606718790CA300301D62 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		58A4604E18790CA200301D62 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				58A4604F18790CA200301D62 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		58A4606C18790CA300301D62 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				58A4606D18790CA300301D62 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		58A4607218790CA300301D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58A4607318790CA300301D62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58A4607518790CA300301D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
+				INFOPLIST_FILE = "scholar calendar/scholar calendar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		58A4607618790CA300301D62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
+				INFOPLIST_FILE = "scholar calendar/scholar calendar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		58A4607818790CA300301D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/scholar calendar.app/scholar calendar";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
+				INFOPLIST_FILE = "scholar calendarTests/scholar calendarTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		58A4607918790CA300301D62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/scholar calendar.app/scholar calendar";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
+				INFOPLIST_FILE = "scholar calendarTests/scholar calendarTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58A4603D18790CA200301D62 /* Build configuration list for PBXProject "scholar calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58A4607218790CA300301D62 /* Debug */,
+				58A4607318790CA300301D62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58A4607418790CA300301D62 /* Build configuration list for PBXNativeTarget "scholar calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58A4607518790CA300301D62 /* Debug */,
+				58A4607618790CA300301D62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		58A4607718790CA300301D62 /* Build configuration list for PBXNativeTarget "scholar calendarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58A4607818790CA300301D62 /* Debug */,
+				58A4607918790CA300301D62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58A4603A18790CA200301D62 /* Project object */;
+}
