@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4gh-kM-tuc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Task List View Controller - Scholar Calendar-->
+        <scene sceneID="DLF-vZ-qrD">
+            <objects>
+                <tableViewController id="e8o-LD-DNI" customClass="SCHTaskListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="53" sectionHeaderHeight="22" sectionFooterHeight="22" id="Sd3-Wd-mJz">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" rowHeight="53" id="hHG-TN-Ex0" customClass="SCHTaskViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="53"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="taskName" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XD-bB-nTa">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="222" id="wpV-Cs-tec"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="courseName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qba-4R-lbb">
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="dueDate" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="63" translatesAutoresizingMaskIntoConstraints="NO" id="g3E-ew-6oh">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="54" id="HpG-O1-Raq"/>
+                                                <constraint firstAttribute="width" constant="63" id="i34-AU-ZT4"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="g3E-ew-6oh" firstAttribute="top" secondItem="hHG-TN-Ex0" secondAttribute="top" type="default" id="Get-Ef-2eU"/>
+                                    <constraint firstItem="g3E-ew-6oh" firstAttribute="leading" secondItem="6XD-bB-nTa" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="L7F-AB-deq"/>
+                                    <constraint firstAttribute="trailing" secondItem="g3E-ew-6oh" secondAttribute="trailing" constant="20" type="default" id="R5r-pc-yvT"/>
+                                    <constraint firstItem="Qba-4R-lbb" firstAttribute="leading" secondItem="6XD-bB-nTa" secondAttribute="leading" type="default" id="VVz-09-Xv2"/>
+                                    <constraint firstItem="g3E-ew-6oh" firstAttribute="leading" secondItem="Qba-4R-lbb" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="ZwU-3h-dly"/>
+                                    <constraint firstItem="6XD-bB-nTa" firstAttribute="top" secondItem="hHG-TN-Ex0" secondAttribute="top" type="default" id="vSh-MU-eWb"/>
+                                    <constraint firstItem="g3E-ew-6oh" firstAttribute="baseline" secondItem="Qba-4R-lbb" secondAttribute="baseline" type="default" id="yBY-jF-NBm"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="courseName" destination="Qba-4R-lbb" id="C1j-f2-Izj"/>
+                                    <outlet property="dueDate" destination="g3E-ew-6oh" id="bUB-4J-7Bf"/>
+                                    <outlet property="taskName" destination="6XD-bB-nTa" id="8Ka-Xg-cIT"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="e8o-LD-DNI" id="vkR-ug-h4i"/>
+                            <outlet property="delegate" destination="e8o-LD-DNI" id="oKR-cG-Ulu"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Scholar Calendar" id="6ih-CJ-diO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uGQ-3u-8a1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="881" y="14"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sxG-U6-nLq">
+            <objects>
+                <navigationController id="4gh-kM-tuc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="J2D-Mh-Qnf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b4y-qm-dFT">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="e8o-LD-DNI" kind="relationship" relationship="rootViewController" id="E64-cl-N7K"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V4i-zC-6XZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="355" y="14"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SCHTaskListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCHTaskListViewController.h"/>
+        </class>
+        <class className="SCHTaskViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCHTaskViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="courseName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dueDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="taskName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
