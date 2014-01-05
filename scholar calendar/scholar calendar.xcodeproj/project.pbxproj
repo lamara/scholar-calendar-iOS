@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		587F47A71879708C0013EC6E /* SCHTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47A61879708C0013EC6E /* SCHTask.m */; };
+		587F47AA187981DD0013EC6E /* SCHAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47A9187981DD0013EC6E /* SCHAssignment.m */; };
+		587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47AC1879821B0013EC6E /* SCHQuiz.m */; };
+		587F47B0187984440013EC6E /* SCHCourse.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47AF187984440013EC6E /* SCHCourse.m */; };
 		58824190187934D70059380D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5882418F187934D70059380D /* Storyboard.storyboard */; };
 		5882419418793EFE0059380D /* SCHTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5882419318793EFE0059380D /* SCHTaskListViewController.m */; };
 		58824198187946550059380D /* SCHTaskViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58824197187946550059380D /* SCHTaskViewCell.m */; };
@@ -37,6 +41,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		587F47A51879708C0013EC6E /* SCHTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHTask.h; sourceTree = "<group>"; };
+		587F47A61879708C0013EC6E /* SCHTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTask.m; sourceTree = "<group>"; };
+		587F47A8187981DD0013EC6E /* SCHAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHAssignment.h; sourceTree = "<group>"; };
+		587F47A9187981DD0013EC6E /* SCHAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHAssignment.m; sourceTree = "<group>"; };
+		587F47AB1879821B0013EC6E /* SCHQuiz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHQuiz.h; sourceTree = "<group>"; };
+		587F47AC1879821B0013EC6E /* SCHQuiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHQuiz.m; sourceTree = "<group>"; };
+		587F47AE187984440013EC6E /* SCHCourse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHCourse.h; sourceTree = "<group>"; };
+		587F47AF187984440013EC6E /* SCHCourse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHCourse.m; sourceTree = "<group>"; };
 		5882418F187934D70059380D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		5882419218793EFE0059380D /* SCHTaskListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHTaskListViewController.h; sourceTree = "<group>"; };
 		5882419318793EFE0059380D /* SCHTaskListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTaskListViewController.m; sourceTree = "<group>"; };
@@ -87,6 +99,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		587F47A4187970740013EC6E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				587F47A51879708C0013EC6E /* SCHTask.h */,
+				587F47A61879708C0013EC6E /* SCHTask.m */,
+				587F47A8187981DD0013EC6E /* SCHAssignment.h */,
+				587F47A9187981DD0013EC6E /* SCHAssignment.m */,
+				587F47AB1879821B0013EC6E /* SCHQuiz.h */,
+				587F47AC1879821B0013EC6E /* SCHQuiz.m */,
+				587F47AE187984440013EC6E /* SCHCourse.h */,
+				587F47AF187984440013EC6E /* SCHCourse.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		5882419118793EA10059380D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +135,7 @@
 		58A4603918790CA200301D62 = {
 			isa = PBXGroup;
 			children = (
+				587F47A4187970740013EC6E /* Model */,
 				5882418F187934D70059380D /* Storyboard.storyboard */,
 				58A4604B18790CA200301D62 /* scholar calendar */,
 				58A4606918790CA300301D62 /* scholar calendarTests */,
@@ -296,6 +324,10 @@
 				58A4605618790CA200301D62 /* SCHAppDelegate.m in Sources */,
 				5882419418793EFE0059380D /* SCHTaskListViewController.m in Sources */,
 				58824198187946550059380D /* SCHTaskViewCell.m in Sources */,
+				587F47A71879708C0013EC6E /* SCHTask.m in Sources */,
+				587F47AA187981DD0013EC6E /* SCHAssignment.m in Sources */,
+				587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */,
+				587F47B0187984440013EC6E /* SCHCourse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
