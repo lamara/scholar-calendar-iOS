@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SCHTask.h"
 
 @interface SCHCourse : NSObject
 
@@ -16,11 +17,13 @@
 
 @property NSString *quizPortletUrl;
 
-@property NSArray *tasks;
+@property NSMutableArray *tasks;
 
 
 -(id)initWithCourseName:(NSString *)courseName;
 
 -(id)initWithCourseName:(NSString *)courseName andAssignmentPortletUrl:(NSString *)assignmentPortletUrl andQuizPortletUrl:(NSString *)quizPortletUrl;
+
+-(void)addTask:(SCHTask *)task;
 
 @end

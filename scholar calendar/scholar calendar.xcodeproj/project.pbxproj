@@ -11,6 +11,7 @@
 		587F47AA187981DD0013EC6E /* SCHAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47A9187981DD0013EC6E /* SCHAssignment.m */; };
 		587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47AC1879821B0013EC6E /* SCHQuiz.m */; };
 		587F47B0187984440013EC6E /* SCHCourse.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47AF187984440013EC6E /* SCHCourse.m */; };
+		5881B76C187C40BE0001145A /* SCHHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5881B76B187C40BE0001145A /* SCHHeaderView.m */; };
 		58824190187934D70059380D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5882418F187934D70059380D /* Storyboard.storyboard */; };
 		5882419418793EFE0059380D /* SCHTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5882419318793EFE0059380D /* SCHTaskListViewController.m */; };
 		58824198187946550059380D /* SCHTaskViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58824197187946550059380D /* SCHTaskViewCell.m */; };
@@ -49,6 +50,8 @@
 		587F47AC1879821B0013EC6E /* SCHQuiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHQuiz.m; sourceTree = "<group>"; };
 		587F47AE187984440013EC6E /* SCHCourse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHCourse.h; sourceTree = "<group>"; };
 		587F47AF187984440013EC6E /* SCHCourse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHCourse.m; sourceTree = "<group>"; };
+		5881B76A187C40BE0001145A /* SCHHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHHeaderView.h; sourceTree = "<group>"; };
+		5881B76B187C40BE0001145A /* SCHHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderView.m; sourceTree = "<group>"; };
 		5882418F187934D70059380D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		5882419218793EFE0059380D /* SCHTaskListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHTaskListViewController.h; sourceTree = "<group>"; };
 		5882419318793EFE0059380D /* SCHTaskListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTaskListViewController.m; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 			children = (
 				58824196187946550059380D /* SCHTaskViewCell.h */,
 				58824197187946550059380D /* SCHTaskViewCell.m */,
+				5881B76A187C40BE0001145A /* SCHHeaderView.h */,
+				5881B76B187C40BE0001145A /* SCHHeaderView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				587F47AA187981DD0013EC6E /* SCHAssignment.m in Sources */,
 				587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */,
 				587F47B0187984440013EC6E /* SCHCourse.m in Sources */,
+				5881B76C187C40BE0001145A /* SCHHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

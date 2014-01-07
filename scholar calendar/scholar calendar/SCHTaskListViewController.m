@@ -8,12 +8,30 @@
 
 #import "SCHTaskListViewController.h"
 #import "SCHTaskViewCell.h"
+#import "SCHTask.h"
+#import "SCHCourse.h"
+#import "SCHHeaderView.h"
 
 @interface SCHTaskListViewController ()
 
 @end
 
-@implementation SCHTaskListViewController
+@implementation SCHTaskListViewController {
+    NSMutableArray *courses;
+    NSMutableArray *tasksDueToday;
+    NSMutableArray *tasksDueThisWeek;
+    NSMutableArray *tasksDueNextWeek;
+    NSMutableArray *tasksDueFarFromNow;
+}
+
+static const int NUM_SECTIONS = 4;
+
+static const int SECTION_HEIGHT = 40;
+
+static const int DUE_TODAY_SECTION = 0;
+static const int DUE_THIS_WEEK_SECTION = 1;
+static const int DUE_NEXT_WEEK_SECTION = 2;
+static const int DUE_FAR_SECTION = 3;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -28,9 +46,33 @@
 {
     [super viewDidLoad];
     
+    courses = [NSMutableArray new];
+    tasksDueToday = [NSMutableArray new];
+    tasksDueThisWeek = [NSMutableArray new];
+    tasksDueNextWeek = [NSMutableArray new];
+    tasksDueFarFromNow = [NSMutableArray new];
+    
+    [self.tableView setSeparatorColor:[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1]];
+    
+    SCHCourse *engineeringCourse = [[SCHCourse alloc] initWithCourseName:@"EngE 1104"];
+    
+    [courses addObject:engineeringCourse];
+    
+    SCHTask *task1 = [[SCHTask alloc] initWithTaskName:@"Homework 1" andCourseName:@"EngE 1104" andDueDate:[NSDate date]];
+    
+    SCHTask *task2 = [[SCHTask alloc] initWithTaskName:@"Homework 2" andCourseName:@"EngE 1104" andDueDate:[NSDate dateWithTimeIntervalSinceNow:(3600 * 14)]];
+    
+    [engineeringCourse addTask:task1];
+    [engineeringCourse addTask:task2];
+    
+    [tasksDueToday addObject:task1];
+    [tasksDueThisWeek addObject:task2];
+    
     //For whatever reason, declaring a footer of any kind will get rid of any rows that do not explicitly
     //contain data. We want this, so we are going to set the footer to an empty view.
     self.tableView.tableFooterView = [UIView new];
+
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -49,13 +91,28 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return NUM_SECTIONS;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 2;
+    switch (section) {
+        case DUE_TODAY_SECTION:
+            return tasksDueToday.count;
+            break;
+        case DUE_THIS_WEEK_SECTION:
+            return tasksDueThisWeek.count;
+            break;
+        case DUE_NEXT_WEEK_SECTION:
+            return tasksDueNextWeek.count;
+            break;
+        case DUE_FAR_SECTION:
+            return tasksDueFarFromNow.count;
+            break;
+        default:
+            return 0;
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,14 +120,140 @@
     static NSString *CellIdentifier = @"TaskCell";
     SCHTaskViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.taskName.text = @"farts";
-    cell.courseName.text = @"butts";
-    cell.dueDate.text = @"never";
+    int index = indexPath.row;
+    int section = indexPath.section;
+    
+    SCHTask *task;
+    switch (section) {
+        case DUE_TODAY_SECTION:
+            task = [tasksDueToday objectAtIndex:index];
+            break;
+        case DUE_THIS_WEEK_SECTION:
+            task = [tasksDueThisWeek objectAtIndex:index];
+            break;
+        case DUE_NEXT_WEEK_SECTION:
+            task = [tasksDueNextWeek objectAtIndex:index];
+            break;
+        case DUE_FAR_SECTION:
+            task = [tasksDueToday objectAtIndex:index];
+            break;
+    }
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE, MMM d '\n' h:mm a"];
+    
+    NSString *formattedDueDate = [formatter stringFromDate:task.dueDate];
+    
+    cell.taskName.text = task.taskName;
+    cell.courseName.text = task.courseName;
+    cell.dueDate.text = formattedDueDate;
     
     
     // Configure the cell...
     
     return cell;
+}
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    SCHHeaderView *header = [[SCHHeaderView alloc] initWithFrame:tableView.frame];
+    switch (section) {
+        case DUE_TODAY_SECTION:
+            [header setText:@"Due today"];
+            break;
+        case DUE_THIS_WEEK_SECTION:
+            [header setText:@"Due this week"];
+            break;
+        case DUE_NEXT_WEEK_SECTION:
+            [header setText:@"Due next week"];
+            break;
+        case DUE_FAR_SECTION:
+            [header setText:@"Due a while from now"];
+            break;
+        default:
+            [header setText:@""];
+            break;
+    }    return header;
+}
+
+
+//It is important to set empty sections to have zero height so there is no empty space in between cells
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case DUE_TODAY_SECTION:
+            if (tasksDueToday.count == 0) {
+                return 0;
+            }
+            else {
+                return SECTION_HEIGHT;
+            }
+            break;
+        case DUE_THIS_WEEK_SECTION:
+            if (tasksDueThisWeek.count == 0) {
+                return 0;
+            }
+            else {
+                return SECTION_HEIGHT;
+            }
+            break;
+        case DUE_NEXT_WEEK_SECTION:
+            if (tasksDueNextWeek.count == 0) {
+                return 0;
+            }
+            else {
+                return SECTION_HEIGHT;
+            }
+            break;
+        case DUE_FAR_SECTION:
+            if (tasksDueFarFromNow.count == 0) {
+                return 0;
+            }
+            else {
+                return SECTION_HEIGHT;
+            }
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+
+/*
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case DUE_TODAY_SECTION:
+            return @"Due today";
+            break;
+        case DUE_THIS_WEEK_SECTION:
+            return nil;
+            break;
+        case DUE_NEXT_WEEK_SECTION:
+            return nil;
+            break;
+        case DUE_FAR_SECTION:
+            return @"Due a while from now";
+            break;
+        default:
+            return @"";
+            break;
+    }
+}
+*/
+
+
+-(UIView *)emptySection
+{
+    static UIView *emptySection = nil;
+    if (emptySection == nil) {
+        emptySection = [[UILabel alloc] initWithFrame:CGRectZero];
+        emptySection.backgroundColor = [UIColor clearColor];
+    }
+    return emptySection;
 }
 
 /*

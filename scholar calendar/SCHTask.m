@@ -54,6 +54,22 @@
     return [self.dueDate compare:object.dueDate];
 }
 
+//Returns true if two task objects have the same task name and course name
+-(BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[self class]]) {
+        return NO;
+    }
+    SCHTask *compareTask = (SCHTask *)object;
+    if ([self.taskName isEqualToString:compareTask.taskName] && [self.courseName isEqualToString:compareTask.courseName]) {
+        return YES;
+    }
+    return NO;
+}
+
+-(NSUInteger)hash {
+    return [self.taskName hash] ^ [self.courseName hash];
+}
+
 //This method is used to parse date strings retrieved from the Scholar website. Because date strings have different formats depending on
 //where they are retrieved from (i.e. assignment pages or homework pages), this implementation is deferred to each of its subclasses.
 -(NSDate *)parseDueDateString:(NSString *)dueDateString
