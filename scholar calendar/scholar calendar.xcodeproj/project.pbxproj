@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5809E398187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5809E397187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m */; };
 		587F47A71879708C0013EC6E /* SCHTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47A61879708C0013EC6E /* SCHTask.m */; };
 		587F47AA187981DD0013EC6E /* SCHAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47A9187981DD0013EC6E /* SCHAssignment.m */; };
 		587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47AC1879821B0013EC6E /* SCHQuiz.m */; };
@@ -29,6 +30,9 @@
 		58A4606618790CA300301D62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604718790CA200301D62 /* Foundation.framework */; };
 		58A4606E18790CA300301D62 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 58A4606C18790CA300301D62 /* InfoPlist.strings */; };
 		58A4607118790CA300301D62 /* scholar_calendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A4607018790CA300301D62 /* scholar_calendarTests.m */; };
+		58D6EEC3187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D6EEC2187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m */; };
+		58D6EEC7187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D6EEC6187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m */; };
+		58D6EECA187D3F1600AB8745 /* SCHHeaderDueFarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D6EEC9187D3F1600AB8745 /* SCHHeaderDueFarView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5809E396187D1D9E00AE7F86 /* SCHHeaderDueTodayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHHeaderDueTodayView.h; sourceTree = "<group>"; };
+		5809E397187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderDueTodayView.m; sourceTree = "<group>"; };
 		587F47A51879708C0013EC6E /* SCHTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHTask.h; sourceTree = "<group>"; };
 		587F47A61879708C0013EC6E /* SCHTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTask.m; sourceTree = "<group>"; };
 		587F47A8187981DD0013EC6E /* SCHAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHAssignment.h; sourceTree = "<group>"; };
@@ -76,6 +82,12 @@
 		58A4606D18790CA300301D62 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		58A4606F18790CA300301D62 /* scholar_calendarTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scholar_calendarTests.h; sourceTree = "<group>"; };
 		58A4607018790CA300301D62 /* scholar_calendarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scholar_calendarTests.m; sourceTree = "<group>"; };
+		58D6EEC1187D3A4800AB8745 /* SCHHeaderDueThisWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHHeaderDueThisWeekView.h; sourceTree = "<group>"; };
+		58D6EEC2187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderDueThisWeekView.m; sourceTree = "<group>"; };
+		58D6EEC5187D3CB000AB8745 /* SCHHeaderDueNextWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHHeaderDueNextWeekView.h; sourceTree = "<group>"; };
+		58D6EEC6187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderDueNextWeekView.m; sourceTree = "<group>"; };
+		58D6EEC8187D3F1600AB8745 /* SCHHeaderDueFarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHHeaderDueFarView.h; sourceTree = "<group>"; };
+		58D6EEC9187D3F1600AB8745 /* SCHHeaderDueFarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderDueFarView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +114,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5809E395187D1D7F00AE7F86 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				5881B76B187C40BE0001145A /* SCHHeaderView.m */,
+				5881B76A187C40BE0001145A /* SCHHeaderView.h */,
+				5809E396187D1D9E00AE7F86 /* SCHHeaderDueTodayView.h */,
+				5809E397187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m */,
+				58D6EEC1187D3A4800AB8745 /* SCHHeaderDueThisWeekView.h */,
+				58D6EEC2187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m */,
+				58D6EEC5187D3CB000AB8745 /* SCHHeaderDueNextWeekView.h */,
+				58D6EEC6187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m */,
+				58D6EEC8187D3F1600AB8745 /* SCHHeaderDueFarView.h */,
+				58D6EEC9187D3F1600AB8745 /* SCHHeaderDueFarView.m */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
 		587F47A4187970740013EC6E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,10 +158,9 @@
 		588241951879460B0059380D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5809E395187D1D7F00AE7F86 /* Headers */,
 				58824196187946550059380D /* SCHTaskViewCell.h */,
 				58824197187946550059380D /* SCHTaskViewCell.m */,
-				5881B76A187C40BE0001145A /* SCHHeaderView.h */,
-				5881B76B187C40BE0001145A /* SCHHeaderView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -334,6 +362,10 @@
 				587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */,
 				587F47B0187984440013EC6E /* SCHCourse.m in Sources */,
 				5881B76C187C40BE0001145A /* SCHHeaderView.m in Sources */,
+				5809E398187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m in Sources */,
+				58D6EEC3187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m in Sources */,
+				58D6EEC7187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m in Sources */,
+				58D6EECA187D3F1600AB8745 /* SCHHeaderDueFarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,10 @@
 #import "SCHTask.h"
 #import "SCHCourse.h"
 #import "SCHHeaderView.h"
+#import "SCHHeaderDueTodayView.h"
+#import "SCHHeaderDueThisWeekView.h"
+#import "SCHHeaderDueNextWeekView.h"
+#import "SCHHeaderDueFarView.h"
 
 @interface SCHTaskListViewController ()
 
@@ -158,24 +162,25 @@ static const int DUE_FAR_SECTION = 3;
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    SCHHeaderView *header = [[SCHHeaderView alloc] initWithFrame:tableView.frame];
+    SCHHeaderView *header;
     switch (section) {
         case DUE_TODAY_SECTION:
-            [header setText:@"Due today"];
+            header = [[SCHHeaderDueTodayView alloc] initWithFrame:tableView.frame];
             break;
         case DUE_THIS_WEEK_SECTION:
-            [header setText:@"Due this week"];
+            header = [[SCHHeaderDueThisWeekView alloc] initWithFrame:tableView.frame];
             break;
         case DUE_NEXT_WEEK_SECTION:
-            [header setText:@"Due next week"];
+            header = [[SCHHeaderDueNextWeekView alloc] initWithFrame:tableView.frame];
             break;
         case DUE_FAR_SECTION:
-            [header setText:@"Due a while from now"];
+            header = [[SCHHeaderDueFarView alloc] initWithFrame:tableView.frame];
             break;
         default:
-            [header setText:@""];
+            header = [[SCHHeaderView alloc] initWithFrame:tableView.frame];
             break;
-    }    return header;
+    }
+    return header;
 }
 
 

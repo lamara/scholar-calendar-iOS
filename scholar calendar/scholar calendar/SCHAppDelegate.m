@@ -12,6 +12,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //Setting default timezone throughout app to Eastern
+    NSLog(@"Time Zone: %@", [NSTimeZone timeZoneWithName:@"America/New_York"]);
+    [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"America/New_York"]];
     
     return YES;
 }
