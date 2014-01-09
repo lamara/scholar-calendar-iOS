@@ -33,6 +33,11 @@
 		58D6EEC3187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D6EEC2187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m */; };
 		58D6EEC7187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D6EEC6187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m */; };
 		58D6EECA187D3F1600AB8745 /* SCHHeaderDueFarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D6EEC9187D3F1600AB8745 /* SCHHeaderDueFarView.m */; };
+		58D97489187F17920093A3F0 /* SCHCourseScraper.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D97488187F17920093A3F0 /* SCHCourseScraper.m */; };
+		58D9748B187F18210093A3F0 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 58D9748A187F18210093A3F0 /* libxml2.2.dylib */; };
+		58D974C7187F19F00093A3F0 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974C4187F19F00093A3F0 /* TFHpple.m */; };
+		58D974C8187F19F00093A3F0 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974C6187F19F00093A3F0 /* TFHppleElement.m */; };
+		58D974CB187F1A140093A3F0 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974CA187F1A140093A3F0 /* XPathQuery.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +93,15 @@
 		58D6EEC6187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderDueNextWeekView.m; sourceTree = "<group>"; };
 		58D6EEC8187D3F1600AB8745 /* SCHHeaderDueFarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHHeaderDueFarView.h; sourceTree = "<group>"; };
 		58D6EEC9187D3F1600AB8745 /* SCHHeaderDueFarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderDueFarView.m; sourceTree = "<group>"; };
+		58D97487187F17860093A3F0 /* SCHCourseScraper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHCourseScraper.h; sourceTree = "<group>"; };
+		58D97488187F17920093A3F0 /* SCHCourseScraper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHCourseScraper.m; sourceTree = "<group>"; };
+		58D9748A187F18210093A3F0 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		58D974C3187F19F00093A3F0 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		58D974C4187F19F00093A3F0 /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		58D974C5187F19F00093A3F0 /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		58D974C6187F19F00093A3F0 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		58D974C9187F1A140093A3F0 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		58D974CA187F1A140093A3F0 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58D9748B187F18210093A3F0 /* libxml2.2.dylib in Frameworks */,
 				58A4604618790CA200301D62 /* UIKit.framework in Frameworks */,
 				58A4604818790CA200301D62 /* Foundation.framework in Frameworks */,
 				58A4604A18790CA200301D62 /* CoreGraphics.framework in Frameworks */,
@@ -168,6 +183,8 @@
 		5885BE4B187EDCA3000B1148 /* Update */ = {
 			isa = PBXGroup;
 			children = (
+				58D97488187F17920093A3F0 /* SCHCourseScraper.m */,
+				58D97487187F17860093A3F0 /* SCHCourseScraper.h */,
 			);
 			path = Update;
 			sourceTree = "<group>";
@@ -175,6 +192,8 @@
 		58A4603918790CA200301D62 = {
 			isa = PBXGroup;
 			children = (
+				58D9748A187F18210093A3F0 /* libxml2.2.dylib */,
+				58D97486187F172B0093A3F0 /* Hpple */,
 				5882418F187934D70059380D /* Storyboard.storyboard */,
 				58A4604B18790CA200301D62 /* scholar calendar */,
 				58A4606918790CA300301D62 /* scholar calendarTests */,
@@ -248,6 +267,27 @@
 				58A4606C18790CA300301D62 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		58D97486187F172B0093A3F0 /* Hpple */ = {
+			isa = PBXGroup;
+			children = (
+				58D974C3187F19F00093A3F0 /* TFHpple.h */,
+				58D974C4187F19F00093A3F0 /* TFHpple.m */,
+				58D974C5187F19F00093A3F0 /* TFHppleElement.h */,
+				58D974C6187F19F00093A3F0 /* TFHppleElement.m */,
+				58D9748C187F193B0093A3F0 /* XPath */,
+			);
+			path = Hpple;
+			sourceTree = "<group>";
+		};
+		58D9748C187F193B0093A3F0 /* XPath */ = {
+			isa = PBXGroup;
+			children = (
+				58D974C9187F1A140093A3F0 /* XPathQuery.h */,
+				58D974CA187F1A140093A3F0 /* XPathQuery.m */,
+			);
+			path = XPath;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +414,10 @@
 				58D6EEC3187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m in Sources */,
 				58D6EEC7187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m in Sources */,
 				58D6EECA187D3F1600AB8745 /* SCHHeaderDueFarView.m in Sources */,
+				58D97489187F17920093A3F0 /* SCHCourseScraper.m in Sources */,
+				58D974C7187F19F00093A3F0 /* TFHpple.m in Sources */,
+				58D974C8187F19F00093A3F0 /* TFHppleElement.m in Sources */,
+				58D974CB187F1A140093A3F0 /* XPathQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,10 +518,12 @@
 		58A4607518790CA300301D62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
 				INFOPLIST_FILE = "scholar calendar/scholar calendar-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2.2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -485,10 +531,13 @@
 		58A4607618790CA300301D62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
 				INFOPLIST_FILE = "scholar calendar/scholar calendar-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2.2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

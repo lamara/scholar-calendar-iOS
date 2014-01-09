@@ -11,7 +11,7 @@
 
 @implementation SCHCourseScraper
 
-static const NSString *LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3A%2F%2Fscholar.vt.edu%2Fsakai-login-tool%2Fcontainer";
+static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3A%2F%2Fscholar.vt.edu%2Fsakai-login-tool%2Fcontainer";
 +(BOOL)retrieveCoursesIntoCourseList:(NSArray *)courseList withUsername:(NSString *)username Password:(NSString *)password
 {
     NSMutableURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]
