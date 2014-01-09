@@ -10,4 +10,9 @@
 
 @interface SCHTaskListViewController : UITableViewController
 
+-(void)updateDidFinish;
+
+-(void)updateFailedWithError:(NSInteger)result;
+
+
 @end

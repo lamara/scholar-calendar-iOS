@@ -8,6 +8,7 @@
 
 #import "SCHTaskListViewController.h"
 #import "SCHTaskViewCell.h"
+#import "SCHCourseScraper.h"
 #import "SCHTask.h"
 #import "SCHCourse.h"
 #import "SCHHeaderView.h"
@@ -75,6 +76,18 @@ static const int DUE_FAR_SECTION = 3;
     //For whatever reason, declaring a footer of any kind will get rid of any rows that do not explicitly
     //contain data. We want this, so we are going to set the footer to an empty view.
     self.tableView.tableFooterView = [UIView new];
+    
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_async(queue, ^{
+        NSLog(@"Doing some work");
+        [SCHCourseScraper retrieveCoursesIntoCourseList:nil withUsername:nil Password:nil];
+        dispatch_queue_t main_queue = dispatch_get_main_queue();
+        dispatch_async(main_queue, ^{
+            [self updateDidFinish];
+        });
+    });
 
     
 
@@ -83,6 +96,16 @@ static const int DUE_FAR_SECTION = 3;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)updateDidFinish
+{
+    NSLog(@"Woo finished");
+}
+
+-(void)updateFailedWithError:(NSInteger)result
+{
+    NSLog(@"Update failed");
 }
 
 - (void)didReceiveMemoryWarning
