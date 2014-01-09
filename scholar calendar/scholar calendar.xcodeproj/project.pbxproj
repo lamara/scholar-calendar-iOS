@@ -128,7 +128,7 @@
 				58D6EEC8187D3F1600AB8745 /* SCHHeaderDueFarView.h */,
 				58D6EEC9187D3F1600AB8745 /* SCHHeaderDueFarView.m */,
 			);
-			name = Headers;
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		587F47A4187970740013EC6E /* Model */ = {
@@ -143,7 +143,7 @@
 				587F47AE187984440013EC6E /* SCHCourse.h */,
 				587F47AF187984440013EC6E /* SCHCourse.m */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		5882419118793EA10059380D /* Controllers */ = {
@@ -152,7 +152,7 @@
 				5882419218793EFE0059380D /* SCHTaskListViewController.h */,
 				5882419318793EFE0059380D /* SCHTaskListViewController.m */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		588241951879460B0059380D /* Views */ = {
@@ -162,13 +162,19 @@
 				58824196187946550059380D /* SCHTaskViewCell.h */,
 				58824197187946550059380D /* SCHTaskViewCell.m */,
 			);
-			name = Views;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5885BE4B187EDCA3000B1148 /* Update */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Update;
 			sourceTree = "<group>";
 		};
 		58A4603918790CA200301D62 = {
 			isa = PBXGroup;
 			children = (
-				587F47A4187970740013EC6E /* Model */,
 				5882418F187934D70059380D /* Storyboard.storyboard */,
 				58A4604B18790CA200301D62 /* scholar calendar */,
 				58A4606918790CA300301D62 /* scholar calendarTests */,
@@ -200,6 +206,8 @@
 		58A4604B18790CA200301D62 /* scholar calendar */ = {
 			isa = PBXGroup;
 			children = (
+				587F47A4187970740013EC6E /* Model */,
+				5885BE4B187EDCA3000B1148 /* Update */,
 				588241951879460B0059380D /* Views */,
 				5882419118793EA10059380D /* Controllers */,
 				58A4605418790CA200301D62 /* SCHAppDelegate.h */,
