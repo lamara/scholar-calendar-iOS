@@ -13,6 +13,8 @@
 
 @property NSString *courseName;
 
+@property NSString *mainUrl;
+
 @property NSString *assignmentPortletUrl;
 
 @property NSString *quizPortletUrl;
@@ -20,9 +22,10 @@
 @property NSMutableArray *tasks;
 
 
--(id)initWithCourseName:(NSString *)courseName;
+-(id)initWithCourseName:(NSString *)courseName andMainUrl:(NSString *)mainUrl;
 
--(id)initWithCourseName:(NSString *)courseName andAssignmentPortletUrl:(NSString *)assignmentPortletUrl andQuizPortletUrl:(NSString *)quizPortletUrl;
+-(id)initWithCourseName:(NSString *)courseName andMainUrl:(NSString *)mainUrl
+                        andAssignmentPortletUrl:(NSString *)assignmentPortletUrl andQuizPortletUrl:(NSString *)quizPortletUrl;
 
 -(void)addTask:(SCHTask *)task;
 

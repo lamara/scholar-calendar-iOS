@@ -59,7 +59,7 @@ static const int DUE_FAR_SECTION = 3;
     
     [self.tableView setSeparatorColor:[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1]];
     
-    SCHCourse *engineeringCourse = [[SCHCourse alloc] initWithCourseName:@"EngE 1104"];
+    SCHCourse *engineeringCourse = [[SCHCourse alloc] initWithCourseName:@"EngE 1104" andMainUrl:nil];
     
     [courses addObject:engineeringCourse];
     
@@ -78,6 +78,7 @@ static const int DUE_FAR_SECTION = 3;
     self.tableView.tableFooterView = [UIView new];
     
     
+    //course update block
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     
     dispatch_async(queue, ^{
@@ -85,7 +86,7 @@ static const int DUE_FAR_SECTION = 3;
         [SCHCourseScraper retrieveCoursesIntoCourseList:nil withUsername:nil Password:nil];
         dispatch_queue_t main_queue = dispatch_get_main_queue();
         dispatch_async(main_queue, ^{
-            [self updateDidFinish];
+            [self updateDidFinish]; 
         });
     });
 

@@ -11,23 +11,25 @@
 @implementation SCHCourse
 
 -(id)init {
-    return [self initWithCourseName:@"N/A" andAssignmentPortletUrl:nil andQuizPortletUrl:nil];
+    return [self initWithCourseName:@"N/A" andMainUrl:nil andAssignmentPortletUrl:nil andQuizPortletUrl:nil];
 }
 
--(id)initWithCourseName:(NSString *)courseName
+-(id)initWithCourseName:(NSString *)courseName andMainUrl:(NSString *)mainUrl
 {
     self = [super init];
     if (self) {
-        self = [self initWithCourseName:courseName andAssignmentPortletUrl:nil andQuizPortletUrl:nil];
+        self = [self initWithCourseName:courseName andMainUrl:mainUrl andAssignmentPortletUrl:nil andQuizPortletUrl:nil];
     }
     return self;
 }
 
--(id)initWithCourseName:(NSString *)courseName andAssignmentPortletUrl:(NSString *)assignmentPortletUrl andQuizPortletUrl:(NSString *)quizPortletUrl
+-(id)initWithCourseName:(NSString *)courseName andMainUrl:(NSString *)mainUrl
+                        andAssignmentPortletUrl:(NSString *)assignmentPortletUrl andQuizPortletUrl:(NSString *)quizPortletUrl
 {
     self = [super init];
     if (self) {
         [self setCourseName:courseName];
+        [self setMainUrl:mainUrl];
         [self setAssignmentPortletUrl:assignmentPortletUrl];
         [self setQuizPortletUrl:quizPortletUrl];
         self.tasks = [[NSMutableArray alloc] init];
