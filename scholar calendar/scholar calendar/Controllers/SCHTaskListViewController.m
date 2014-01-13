@@ -38,6 +38,8 @@ static const int DUE_THIS_WEEK_SECTION = 1;
 static const int DUE_NEXT_WEEK_SECTION = 2;
 static const int DUE_FAR_SECTION = 3;
 
+static NSString * const COURSES_FILE = @"/courses";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -72,24 +74,25 @@ static const int DUE_FAR_SECTION = 3;
     
     [tasksDueToday addObject:task1];
     [tasksDueThisWeek addObject:task2];
+    [self readDataFromStorage];
     
     //For whatever reason, declaring a footer of any kind will get rid of any rows that do not explicitly
     //contain data. We want this, so we are going to set the footer to an empty view.
     self.tableView.tableFooterView = [UIView new];
     
-    
     //course update block
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     
     dispatch_async(queue, ^{
-        NSLog(@"Doing some work");
-        [SCHCourseScraper retrieveCoursesIntoCourseList:nil withUsername:nil Password:nil];
+        NSMutableArray *emptyCourseList = [NSMutableArray new];
+        [SCHCourseScraper retrieveCoursesIntoCourseList:emptyCourseList withUsername:nil Password:nil];
+        
         dispatch_queue_t main_queue = dispatch_get_main_queue();
         dispatch_async(main_queue, ^{
-            [self updateDidFinish]; 
+            [self updateDidFinishWithCourseList:emptyCourseList];
         });
     });
-
+    
     
 
     // Uncomment the following line to preserve selection between presentations.
@@ -99,8 +102,38 @@ static const int DUE_FAR_SECTION = 3;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
--(void)updateDidFinish
+//Not sure if keyedarchiver is thread safe so call this from the main thread from now
+-(void)readDataFromStorage
 {
+    NSMutableArray *courseListFromStorage = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForCourseFile]];
+    if (![courseListFromStorage isKindOfClass:[NSArray class]]) {
+        NSLog(@"Course data not stored as an array in storage, failed to retrieve data");
+        return;
+    }
+    if (courseListFromStorage == nil) {
+        NSLog(@"Course list was not present in storage");
+        return;
+    }
+    NSLog(@"Courses retrieved successfully from storage");
+    courses = courseListFromStorage;
+}
+
+-(NSString *)pathForCourseFile
+{
+    NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *path;
+    if (pathArray.count != 0) {
+        path = [pathArray objectAtIndex:0];
+    }
+    path = [path stringByAppendingString:COURSES_FILE];
+    return path;
+}
+
+-(void)updateDidFinishWithCourseList:(NSMutableArray *)updatedCourseList
+{
+    [NSKeyedArchiver archiveRootObject:updatedCourseList toFile:[self pathForCourseFile]];
+    courses = updatedCourseList;
     NSLog(@"Woo finished");
 }
 

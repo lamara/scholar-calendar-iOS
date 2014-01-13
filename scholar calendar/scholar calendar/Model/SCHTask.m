@@ -38,6 +38,24 @@
     return self;
 }
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self ) {
+        self.taskName = [aDecoder decodeObjectForKey:@"taskName"];
+        self.courseName = [aDecoder decodeObjectForKey:@"courseName"];
+        self.dueDate = [aDecoder decodeObjectForKey:@"dueDate"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.taskName forKey:@"taskName"];
+    [aCoder encodeObject:self.courseName forKey:@"courseName"];
+    [aCoder encodeObject:self.dueDate forKey:@"dueDate"];
+}
+
 //Compares based on two task object's dueDates. Is nil-safe, any nil due dates will always be greater
 //than non-nil due dates
 -(NSComparisonResult)compare:(SCHTask *)object

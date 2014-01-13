@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SCHTask : NSObject
+@interface SCHTask : NSObject <NSCoding>
 
 @property NSString *taskName;
 

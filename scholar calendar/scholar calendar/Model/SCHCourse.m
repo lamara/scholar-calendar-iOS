@@ -37,6 +37,27 @@
     return self;
 }
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        self.courseName = [aDecoder decodeObjectForKey:@"courseName"];
+        self.mainUrl = [aDecoder decodeObjectForKey:@"mainUrl"];
+        self.assignmentPortletUrl = [aDecoder decodeObjectForKey:@"assignmentPortletUrl"];
+        self.quizPortletUrl = [aDecoder decodeObjectForKey:@"quizPortletUrl"];
+        self.tasks = [aDecoder decodeObjectForKey:@"tasks"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.courseName forKey:@"courseName"];
+    [aCoder encodeObject:self.mainUrl forKey:@"mainUrl"];
+    [aCoder encodeObject:self.assignmentPortletUrl forKey:@"assignmentPortletUrl"];
+    [aCoder encodeObject:self.quizPortletUrl forKey:@"quizPortletUrl"];
+    [aCoder encodeObject:self.tasks forKey:@"tasks"];
+}
+
 //Adds a task to the course's internal task list. If a task is added that already exists in the task list
 //(as defined by isEqual), it will replace the existing task object. Because task equality is calculated regardless
 //of due date, this has the side-effect of updating a task's due date if an administrator decides to change it on Scholar

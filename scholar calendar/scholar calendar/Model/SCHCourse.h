@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SCHTask.h"
 
-@interface SCHCourse : NSObject
+@interface SCHCourse : NSObject <NSCoding>
 
 @property NSString *courseName;
 
