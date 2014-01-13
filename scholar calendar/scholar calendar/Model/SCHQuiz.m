@@ -10,10 +10,14 @@
 
 @implementation SCHQuiz
 
+
+//Parses a string date of the format "2013-Jan-27 04:48 PM into a date object
 -(NSDate *)parseDueDateString:(NSString *)dueDateString
 {
-    //unimplemented at this point
-    return nil;
+    dueDateString = [dueDateString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MMM-dd hh:mm aaa"];
+    return [dateFormatter dateFromString:dueDateString];
 }
 
 @end

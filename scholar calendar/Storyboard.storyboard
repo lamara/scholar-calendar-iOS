@@ -24,7 +24,7 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="taskName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XD-bB-nTa">
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="27" id="8jw-Mp-BBI"/>
-                                                <constraint firstAttribute="width" constant="212" id="SeW-eF-L5f"/>
+                                                <constraint firstAttribute="width" constant="200" id="w3m-4e-9md"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="21"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,9 +34,9 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="dueDate" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="92" translatesAutoresizingMaskIntoConstraints="NO" id="g3E-ew-6oh">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="dueDate" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="g3E-ew-6oh">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="92" id="Wnu-Ej-AiH"/>
+                                                <constraint firstAttribute="width" constant="100" id="YSq-Hu-jCc"/>
                                                 <constraint firstAttribute="height" constant="47" id="zB2-3g-pnd"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
@@ -48,9 +48,9 @@
                                 </view>
                                 <constraints>
                                     <constraint firstItem="6XD-bB-nTa" firstAttribute="top" secondItem="hHG-TN-Ex0" secondAttribute="top" constant="6" id="9Bp-mu-7DD"/>
-                                    <constraint firstAttribute="trailing" secondItem="g3E-ew-6oh" secondAttribute="trailing" constant="10" id="Tsp-Uz-VHY"/>
-                                    <constraint firstItem="6XD-bB-nTa" firstAttribute="trailing" secondItem="Qba-4R-lbb" secondAttribute="trailing" type="default" id="UtF-DJ-5Gp"/>
+                                    <constraint firstItem="Qba-4R-lbb" firstAttribute="centerX" secondItem="6XD-bB-nTa" secondAttribute="centerX" type="default" id="NFk-rx-0hr"/>
                                     <constraint firstItem="Qba-4R-lbb" firstAttribute="leading" secondItem="6XD-bB-nTa" secondAttribute="leading" type="default" id="bvM-0P-UgI"/>
+                                    <constraint firstAttribute="trailing" secondItem="g3E-ew-6oh" secondAttribute="trailing" constant="10" id="d6J-Ue-Qus"/>
                                     <constraint firstItem="6XD-bB-nTa" firstAttribute="leading" secondItem="hHG-TN-Ex0" secondAttribute="leading" constant="7" id="lKO-C3-4dR"/>
                                     <constraint firstItem="6XD-bB-nTa" firstAttribute="top" secondItem="g3E-ew-6oh" secondAttribute="top" type="default" id="mMK-tW-qKN"/>
                                     <constraint firstItem="g3E-ew-6oh" firstAttribute="baseline" secondItem="Qba-4R-lbb" secondAttribute="baseline" type="default" id="qTN-Zo-wTT"/>

@@ -74,6 +74,8 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
         }
         TFHppleElement *nameAndUrlElement = [nameAndUrlElements objectAtIndex:0];
         NSString *name = [nameAndUrlElement text];
+        name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
         NSString *url = [nameAndUrlElement objectForKey:@"href"];
         
         SCHCourse *course = [[SCHCourse alloc] initWithCourseName:name andMainUrl:url];
@@ -132,7 +134,11 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     NSString *courseName = [course courseName];
     for (int i = 0; i < titles.count; i++) {
         NSString *title = [(TFHppleElement *)[titles objectAtIndex:i] text];
+        title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
         NSString *dueDate = [(TFHppleElement *)[dueDates objectAtIndex:i] text];
+        dueDate = [dueDate stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
         NSLog(@"Title: %@", title);
         NSLog(@"due date: %@", dueDate);
         SCHAssignment *assignment = [[SCHAssignment alloc] initWithTaskName:title andCourseName:courseName andDueDateString:dueDate];
@@ -174,7 +180,11 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
             //encountered uneven data sets, this is really bad and shouldn't happen, do some error handling
         }
         NSString *title = [[(TFHppleElement *)[quizData objectAtIndex:i] firstChild] text];
+        title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
         NSString *dueDate = [(TFHppleElement *)[quizData objectAtIndex:(i + 2)] text];
+        dueDate = [dueDate stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
         NSLog(@"Title: %@", title);
         NSLog(@"due date: %@", dueDate);
         
@@ -248,6 +258,7 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     NSInteger month = [components month];
     month = (month + 5) % 12; //advances month by 5 so July is effectively month 0
     NSLog(@"Month: %d", month);
+    return @"Fall 2013";
     if (month < 6) {
         //From July to December
         return [[NSString alloc] initWithFormat:@"Fall %d", [components year]];

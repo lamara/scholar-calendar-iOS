@@ -23,10 +23,10 @@
 
 @implementation SCHTaskListViewController {
     NSMutableArray *courses;
-    NSMutableArray *tasksDueToday;
-    NSMutableArray *tasksDueThisWeek;
-    NSMutableArray *tasksDueNextWeek;
-    NSMutableArray *tasksDueFarFromNow;
+    NSArray *tasksDueToday;
+    NSArray *tasksDueThisWeek;
+    NSArray *tasksDueNextWeek;
+    NSArray *tasksDueFarFromNow;
 }
 
 static const int NUM_SECTIONS = 4;
@@ -61,6 +61,10 @@ static NSString * const COURSES_FILE = @"/courses";
     
     [self.tableView setSeparatorColor:[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1]];
     
+    [self readDataFromStorage];
+    [self loadTasksIntoSeparatedTaskLists];
+    
+    /*
     SCHCourse *engineeringCourse = [[SCHCourse alloc] initWithCourseName:@"EngE 1104" andMainUrl:nil];
     
     [courses addObject:engineeringCourse];
@@ -74,7 +78,8 @@ static NSString * const COURSES_FILE = @"/courses";
     
     [tasksDueToday addObject:task1];
     [tasksDueThisWeek addObject:task2];
-    [self readDataFromStorage];
+     */
+    
     
     //For whatever reason, declaring a footer of any kind will get rid of any rows that do not explicitly
     //contain data. We want this, so we are going to set the footer to an empty view.
@@ -116,13 +121,92 @@ static NSString * const COURSES_FILE = @"/courses";
     }
     NSLog(@"Courses retrieved successfully from storage");
     courses = courseListFromStorage;
+    NSLog(@"%d", courses.count);
+    for (SCHCourse *course in courses) {
+        for (SCHTask *task in course.tasks) {
+            NSLog(@"Taskname: %@    dueDate: %@", task.taskName, task.dueDate);
+        }
+    }
+}
+
+//Loads all of the tasks in the main courselist to their respective section arrays
+-(void)loadTasksIntoSeparatedTaskLists
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *today = [[NSDate alloc] init];
+    NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit
+                                                        | NSDayCalendarUnit | NSHourCalendarUnit | NSWeekdayCalendarUnit
+                                                        | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:today];
+    [components setHour:0];
+    [components setMinute:0];
+    [components setSecond:0];
+    NSInteger day = [components day];
+    NSInteger dayOfWeek = [components weekday];
+    
+    NSDate *beginOfToday = [calendar dateFromComponents:components];
+    [components setDay:(day + 1)]; //set to tomorrow
+    NSDate *beginOfTomorrow = [calendar dateFromComponents:components];
+    [components setDay:(day - dayOfWeek + 9)]; //set to beginning of next week with some date math
+    NSDate *beginOfNextWeek = [calendar dateFromComponents:components];
+    [components setDay:(day - dayOfWeek + 16)]; //set to beginning of two weeks from now
+    NSDate *beginOfTwoWeeksFromNow = [calendar dateFromComponents:components];
+    
+    
+    
+    NSMutableArray *allTasks = [NSMutableArray new];
+    for (SCHCourse *course in courses) {
+        for (SCHTask *task in course.tasks) {
+            [allTasks addObject:task];
+        }
+    }
+    /*
+    NSLog(@"Begin of today: %@     Begin of tomorrow: %@      Begin of next week: %@       begin of two weeks: %@", beginOfToday, beginOfTomorrow, beginOfNextWeek, beginOfTwoWeeksFromNow);
+     */
+    
+    tasksDueToday = [allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings)
+    {
+        NSDate *dueDate = [(SCHTask *)evaluatedObject dueDate];
+        if ([beginOfToday compare:dueDate] == NSOrderedAscending && [dueDate compare:beginOfTomorrow] == NSOrderedAscending) {
+            //lies between the two dates, so we'll stick it here
+            return YES;
+        }
+        return NO;
+    }]];
+    tasksDueThisWeek = [allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings)
+    {
+        NSDate *dueDate = [(SCHTask *)evaluatedObject dueDate];
+        if ([beginOfTomorrow compare:dueDate] == NSOrderedAscending && [dueDate compare:beginOfNextWeek] == NSOrderedAscending) {
+            //lies between tomorrow and next week, so we'll stick it here
+            return YES;
+        }
+        return NO;
+    }]];
+    tasksDueNextWeek = [allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings)
+    {
+        NSDate *dueDate = [(SCHTask *)evaluatedObject dueDate];
+        if ([beginOfNextWeek compare:dueDate] == NSOrderedAscending && [dueDate compare:beginOfTwoWeeksFromNow] == NSOrderedAscending) {
+            //lies between next week and the week after, so we'll stick it here
+            return YES;
+        }
+        return NO;
+    }]];
+    tasksDueFarFromNow = [allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings)
+    {
+        NSDate *dueDate = [(SCHTask *)evaluatedObject dueDate];
+        //NSLog(@"due date: %@", dueDate);
+        if ([dueDate compare:beginOfTwoWeeksFromNow] == NSOrderedDescending || dueDate == nil) {
+            //is older than two weeks from now, so we'll stick it here
+            return YES;
+        }
+        return NO;
+    }]];
 }
 
 -(NSString *)pathForCourseFile
 {
     NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    NSString *path;
+    NSString *path = nil;
     if (pathArray.count != 0) {
         path = [pathArray objectAtIndex:0];
     }
@@ -134,6 +218,8 @@ static NSString * const COURSES_FILE = @"/courses";
 {
     [NSKeyedArchiver archiveRootObject:updatedCourseList toFile:[self pathForCourseFile]];
     courses = updatedCourseList;
+    [self loadTasksIntoSeparatedTaskLists];
+    [self.tableView reloadData];
     NSLog(@"Woo finished");
 }
 
@@ -196,7 +282,7 @@ static NSString * const COURSES_FILE = @"/courses";
             task = [tasksDueNextWeek objectAtIndex:index];
             break;
         case DUE_FAR_SECTION:
-            task = [tasksDueToday objectAtIndex:index];
+            task = [tasksDueFarFromNow objectAtIndex:index];
             break;
     }
     
@@ -205,6 +291,10 @@ static NSString * const COURSES_FILE = @"/courses";
     [formatter setDateFormat:@"EEE, MMM d '\n' h:mm a"];
     
     NSString *formattedDueDate = [formatter stringFromDate:task.dueDate];
+    if (task.dueDate == nil) {
+        formattedDueDate = @"N/A";
+    }
+    
     
     cell.taskName.text = task.taskName;
     cell.courseName.text = task.courseName;
