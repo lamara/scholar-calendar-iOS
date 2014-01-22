@@ -258,7 +258,6 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     NSInteger month = [components month];
     month = (month + 5) % 12; //advances month by 5 so July is effectively month 0
     NSLog(@"Month: %d", month);
-    return @"Fall 2013";
     if (month < 6) {
         //From July to December
         return [[NSString alloc] initWithFormat:@"Fall %d", [components year]];

@@ -27,6 +27,13 @@
     NSArray *tasksDueThisWeek;
     NSArray *tasksDueNextWeek;
     NSArray *tasksDueFarFromNow;
+
+    NSString *username;
+    NSString *password;
+    
+    UIBarButtonItem* logInButton;
+    
+    BOOL isLoggedIn;
 }
 
 static const int NUM_SECTIONS = 4;
@@ -38,7 +45,11 @@ static const int DUE_THIS_WEEK_SECTION = 1;
 static const int DUE_NEXT_WEEK_SECTION = 2;
 static const int DUE_FAR_SECTION = 3;
 
+static NSString * const LOG_IN_TEXT = @"Log in to Scholar";
+static NSString * const LOG_OUT_TEXT = @"Log out of Scholar?";
+
 static NSString * const COURSES_FILE = @"/courses";
+static NSString * const USER_FILE = @"/userData";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -64,6 +75,22 @@ static NSString * const COURSES_FILE = @"/courses";
     [self readDataFromStorage];
     [self loadTasksIntoSeparatedTaskLists];
     
+    logInButton = [[UIBarButtonItem alloc] initWithTitle:@"Log in" style:UIBarButtonItemStylePlain
+                                                                  target:self action:@selector(clickedLogInButton:)];
+    
+    self.navigationItem.rightBarButtonItem = logInButton;
+    
+    
+    isLoggedIn = [self readUsernamePasswordFromStorage];
+    if (isLoggedIn) {
+        [logInButton setTitle:@"Log out"];
+    }
+    else {
+        [self launchLoginDialog];
+    }
+    
+    
+    
     /*
     SCHCourse *engineeringCourse = [[SCHCourse alloc] initWithCourseName:@"EngE 1104" andMainUrl:nil];
     
@@ -85,20 +112,6 @@ static NSString * const COURSES_FILE = @"/courses";
     //contain data. We want this, so we are going to set the footer to an empty view.
     self.tableView.tableFooterView = [UIView new];
     
-    //course update block
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    
-    dispatch_async(queue, ^{
-        NSMutableArray *emptyCourseList = [NSMutableArray new];
-        [SCHCourseScraper retrieveCoursesIntoCourseList:emptyCourseList withUsername:nil Password:nil];
-        
-        dispatch_queue_t main_queue = dispatch_get_main_queue();
-        dispatch_async(main_queue, ^{
-            [self updateDidFinishWithCourseList:emptyCourseList];
-        });
-    });
-    
-    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -106,6 +119,99 @@ static NSString * const COURSES_FILE = @"/courses";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+-(void)setLoggedIn
+{
+    isLoggedIn = true;
+    [logInButton setTitle:@"Log out"];
+}
+
+-(void)setLoggedOut
+{
+    isLoggedIn = false;
+    [logInButton setTitle:@"Log in"];
+    [self saveUsername:nil andPassword:nil];
+}
+
+-(void)launchLoginDialog
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log in" message:LOG_IN_TEXT delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enter", nil];
+    alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    [alert show];
+}
+
+-(void)launchLogoutDialog
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:LOG_OUT_TEXT delegate:self
+                                          cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enter", nil];
+    [alert show];
+}
+
+//Callback for when the user hits enter on the login dialog
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([alertView.message isEqualToString:LOG_OUT_TEXT]) {
+        if (buttonIndex != 0) {
+            //user wants to log out
+            [self setLoggedOut];
+        }
+        return;
+    }
+    
+    if (buttonIndex != 0) {
+        NSString *username = [alertView textFieldAtIndex:0].text;
+        NSString *password = [alertView textFieldAtIndex:1].text;
+        [self saveUsername:username andPassword:password];
+        [self updateWithUsername:username Password:password];
+        [self setLoggedIn];
+    }
+}
+
+-(void)updateWithUsername:(NSString *)username Password:(NSString *)password;
+{
+    //course update block
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_async(queue, ^{
+        NSMutableArray *emptyCourseList = [NSMutableArray new];
+        [SCHCourseScraper retrieveCoursesIntoCourseList:emptyCourseList withUsername:username Password:password];
+        
+        dispatch_queue_t main_queue = dispatch_get_main_queue();
+        dispatch_async(main_queue, ^{
+            [self updateDidFinishWithCourseList:emptyCourseList];
+        });
+    });
+}
+
+-(void)clickedLogInButton:(id)sender
+{
+    if (isLoggedIn) {
+        [self launchLogoutDialog];
+    }
+    else {
+        [self launchLoginDialog];
+    }
+    NSLog(@"Clicked");
+}
+
+-(BOOL)readUsernamePasswordFromStorage
+{
+    NSArray *userDataFromStorage = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForUserFile]];
+    if (![userDataFromStorage isKindOfClass:[NSArray class]]) {
+        NSLog(@"username/password not stored as an array in storage, failed to retrieve data");
+        return FALSE;
+    }
+    if (userDataFromStorage == nil || userDataFromStorage.count != 2) {
+        //an empty array of count 0 is used to represent no user
+        NSLog(@"username/password was not present in storage");
+        return FALSE;
+    }
+    NSLog(@"username/password retrieved successfully from storage");
+    username = [userDataFromStorage objectAtIndex:0];
+    password = [userDataFromStorage objectAtIndex:1];
+    return TRUE;
+}
+
 
 //Not sure if keyedarchiver is thread safe so call this from the main thread from now
 -(void)readDataFromStorage
@@ -212,6 +318,38 @@ static NSString * const COURSES_FILE = @"/courses";
     }
     path = [path stringByAppendingString:COURSES_FILE];
     return path;
+}
+
+-(NSString *)pathForUserFile
+{
+    NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *path = nil;
+    if (pathArray.count != 0) {
+        path = [pathArray objectAtIndex:0];
+    }
+    path = [path stringByAppendingString:USER_FILE];
+    return path;
+}
+
+//Returns true if given valid input, false if not
+-(BOOL)saveUsername:(NSString *)username andPassword:(NSString *)password
+{
+    if (username == nil || password == nil) {
+        //archive an empty array
+        [NSKeyedArchiver archiveRootObject:[NSArray new] toFile:[self pathForUserFile]];
+        NSLog(@"nil username/password, not saved");
+        return FALSE;
+    }
+    if (username.length == 0 || password.length == 0) {
+        [NSKeyedArchiver archiveRootObject:[NSArray new] toFile:[self pathForUserFile]];
+        NSLog(@"password/username length 0, not saved");
+        return FALSE;
+    }
+    NSArray *usernamePasswordData = [[NSArray alloc] initWithObjects:username, password, nil];
+    [NSKeyedArchiver archiveRootObject:usernamePasswordData toFile:[self pathForUserFile]];
+    NSLog(@"password saved");
+    return TRUE;
 }
 
 -(void)updateDidFinishWithCourseList:(NSMutableArray *)updatedCourseList
