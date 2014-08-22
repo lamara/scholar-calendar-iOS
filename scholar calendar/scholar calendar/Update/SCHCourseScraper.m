@@ -202,6 +202,14 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     return [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 }
 
++(NSString*)encodeToPercentEscapeString:(NSString*)string {
+    return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
+                                            (CFStringRef) string,
+                                            NULL,
+                                            (CFStringRef) @"!*'();:@+$,/?%#[]",//@"!+$/?%#[]",
+                                            kCFStringEncodingUTF8));
+}
+
 +(NSData *)logInToMainPageWithUsername:(NSString *)username Password:(NSString *)password
 {
     NSMutableURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]
@@ -222,15 +230,21 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     
 
     TFHppleElement *ltElement = [hiddenElements objectAtIndex:0];
-    
+    //The lt and execution values are generated for each session and are used as hidden fields in post, but we can grab them
+    //from the source and put them in our post string
     NSString *ltValue = [ltElement objectForKey:@"value"];
     
-    //the following post paramaters are all static except for the lt element and username/password
-    NSString *postString = [[NSString alloc] initWithFormat:@"lt=%@&submit=_submit&_eventId=submit&execution=e1s1&username=%@&password=%@", ltValue, username, password];
+    TFHppleElement *executionElement = [hiddenElements objectAtIndex:1];
+    NSString *executionValue = [executionElement objectForKey:@"value"];
+    
+    //the following post paramaters are all static except for the lt element, execution element and username/password
+    NSString *postString = [[NSString alloc] initWithFormat:@"lt=%@&submit=_submit&_eventId=submit&execution=%@&username=%@&password=%@", ltValue, executionValue, username, password];
+    
+    NSString *encodedPostString = [self encodeToPercentEscapeString:postString];//[postString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[NSData dataWithBytes:[postString UTF8String] length:strlen([postString UTF8String])]];
+    [request setHTTPBody:[NSData dataWithBytes:[encodedPostString UTF8String] length:strlen([encodedPostString UTF8String])]];
     
     NSData *mainPage = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     

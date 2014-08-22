@@ -336,6 +336,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SCH;
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Alex Lamar";
 			};
