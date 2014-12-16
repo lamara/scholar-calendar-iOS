@@ -7,6 +7,9 @@
 //
 
 #import "SCHTaskListViewController.h"
+#import "SCHTaskViewController.h"
+#import "SCHScholarWebViewController.h"
+#import "SCHSettingsViewController.h"
 #import "SCHTaskViewCell.h"
 #import "SCHCourseScraper.h"
 #import "SCHTask.h"
@@ -16,27 +19,30 @@
 #import "SCHHeaderDueThisWeekView.h"
 #import "SCHHeaderDueNextWeekView.h"
 #import "SCHHeaderDueFarView.h"
+#import "SCHAlarmSetter.h"
 
 @interface SCHTaskListViewController ()
 
 @end
 
 @implementation SCHTaskListViewController {
-    NSMutableArray *courses;
+    NSMutableArray *_courses;
     NSArray *tasksDueToday;
     NSArray *tasksDueThisWeek;
     NSArray *tasksDueNextWeek;
     NSArray *tasksDueFarFromNow;
 
-    NSString *username;
-    NSString *password;
+    NSString *_username;
+    NSString *_password;
     
     UIBarButtonItem* logInButton;
     
     BOOL isLoggedIn;
+    BOOL authenticated; //Cookies are set w/r/t scholar page
+    BOOL loggingIn;
 }
 
-static const int NUM_SECTIONS = 4;
+static const int NUM_SECTIONS = 5;
 
 static const int SECTION_HEIGHT = 40;
 
@@ -44,8 +50,12 @@ static const int DUE_TODAY_SECTION = 0;
 static const int DUE_THIS_WEEK_SECTION = 1;
 static const int DUE_NEXT_WEEK_SECTION = 2;
 static const int DUE_FAR_SECTION = 3;
+static const int EMPTY_LIST_HEADER = 4;
+
+static int const WRONG_CREDENTIALS_ERROR = 100;
 
 static NSString * const LOG_IN_TEXT = @"Log in to Scholar";
+static NSString * const LOG_IN_FAILED_TEXT = @"Failed to log in, try again";
 static NSString * const LOG_OUT_TEXT = @"Log out of Scholar?";
 
 static NSString * const COURSES_FILE = @"/courses";
@@ -64,7 +74,15 @@ static NSString * const USER_FILE = @"/userData";
 {
     [super viewDidLoad];
     
-    courses = [NSMutableArray new];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    
+    [refreshControl addTarget:self action:@selector(refreshTriggered) forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControl = refreshControl;
+    
+    
+    _courses = [NSMutableArray new];
     tasksDueToday = [NSMutableArray new];
     tasksDueThisWeek = [NSMutableArray new];
     tasksDueNextWeek = [NSMutableArray new];
@@ -79,6 +97,7 @@ static NSString * const USER_FILE = @"/userData";
                                                                   target:self action:@selector(clickedLogInButton:)];
     
     self.navigationItem.rightBarButtonItem = logInButton;
+    
     
     
     isLoggedIn = [self readUsernamePasswordFromStorage];
@@ -129,13 +148,25 @@ static NSString * const USER_FILE = @"/userData";
 -(void)setLoggedOut
 {
     isLoggedIn = false;
+    loggingIn = false;
     [logInButton setTitle:@"Log in"];
     [self saveUsername:nil andPassword:nil];
+    
+    [SCHCourseScraper clearAllCookies];
+    authenticated = NO;
+    
+    NSMutableArray *emptyCourseList = [NSMutableArray new];
+    [self updateDidFinishWithCourseList:emptyCourseList];
 }
 
 -(void)launchLoginDialog
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log in" message:LOG_IN_TEXT delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enter", nil];
+    [self launchLoginDialogWithMessage:LOG_IN_TEXT];
+}
+
+-(void)launchLoginDialogWithMessage:(NSString *)message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log in" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enter", nil];
     alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     [alert show];
 }
@@ -145,6 +176,46 @@ static NSString * const USER_FILE = @"/userData";
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:LOG_OUT_TEXT delegate:self
                                           cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enter", nil];
     [alert show];
+}
+
+-(void)refreshTriggered
+{
+    [self refreshTriggeredWithUsername:_username andPassword:_password];
+}
+
+-(void)refreshTriggeredWithUsername:(NSString*)username andPassword:(NSString*)password
+{
+    [self.tableView reloadData];
+    [self.refreshControl beginRefreshing];
+    //course update block
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_async(queue, ^{
+        BOOL success = [SCHCourseScraper retrieveCoursesIntoCourseList:_courses withUsername:username Password:password]; //synchronous
+        
+        dispatch_queue_t main_queue = dispatch_get_main_queue();
+        dispatch_async(main_queue, ^{
+            if (success) {
+                [self updateDidFinishWithCourseList:_courses];
+                loggingIn = NO;
+                [self setLoggedIn];
+            }
+            else {
+                if (loggingIn) {
+                    //Tried to log in but had wrong credentials. Present the login screen again
+                    [self launchLoginDialogWithMessage:LOG_IN_FAILED_TEXT];
+                }
+                [self updateFailedWithError:WRONG_CREDENTIALS_ERROR];
+                loggingIn = NO;
+            }
+            [self performSelector:@selector(stopRefresh)];
+        });
+    });
+}
+
+-(void)stopRefresh
+{
+    [self.refreshControl endRefreshing];
 }
 
 //Callback for when the user hits enter on the login dialog
@@ -159,28 +230,13 @@ static NSString * const USER_FILE = @"/userData";
     }
     
     if (buttonIndex != 0) {
+        loggingIn = YES;
         NSString *username = [alertView textFieldAtIndex:0].text;
         NSString *password = [alertView textFieldAtIndex:1].text;
         [self saveUsername:username andPassword:password];
-        [self updateWithUsername:username Password:password];
-        [self setLoggedIn];
+        [self refreshTriggeredWithUsername:username andPassword:password];
+        //[self setLoggedIn]; // we don't want to do this until we are confirmed logged in
     }
-}
-
--(void)updateWithUsername:(NSString *)username Password:(NSString *)password;
-{
-    //course update block
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    
-    dispatch_async(queue, ^{
-        NSMutableArray *emptyCourseList = [NSMutableArray new];
-        [SCHCourseScraper retrieveCoursesIntoCourseList:emptyCourseList withUsername:username Password:password];
-        
-        dispatch_queue_t main_queue = dispatch_get_main_queue();
-        dispatch_async(main_queue, ^{
-            [self updateDidFinishWithCourseList:emptyCourseList];
-        });
-    });
 }
 
 -(void)clickedLogInButton:(id)sender
@@ -207,8 +263,8 @@ static NSString * const USER_FILE = @"/userData";
         return FALSE;
     }
     NSLog(@"username/password retrieved successfully from storage");
-    username = [userDataFromStorage objectAtIndex:0];
-    password = [userDataFromStorage objectAtIndex:1];
+    _username = [userDataFromStorage objectAtIndex:0];
+    _password = [userDataFromStorage objectAtIndex:1];
     return TRUE;
 }
 
@@ -226,9 +282,9 @@ static NSString * const USER_FILE = @"/userData";
         return;
     }
     NSLog(@"Courses retrieved successfully from storage");
-    courses = courseListFromStorage;
-    NSLog(@"%d", courses.count);
-    for (SCHCourse *course in courses) {
+    _courses = courseListFromStorage;
+    NSLog(@"%d", _courses.count);
+    for (SCHCourse *course in _courses) {
         for (SCHTask *task in course.tasks) {
             NSLog(@"Taskname: %@    dueDate: %@", task.taskName, task.dueDate);
         }
@@ -239,7 +295,8 @@ static NSString * const USER_FILE = @"/userData";
 -(void)loadTasksIntoSeparatedTaskLists
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *today = [[NSDate alloc] init];
+   // NSDate *today = [[NSDate alloc] init];
+    NSDate *today = [[NSDate alloc] initWithTimeIntervalSinceNow:-2592000];
     NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit
                                                         | NSDayCalendarUnit | NSHourCalendarUnit | NSWeekdayCalendarUnit
                                                         | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:today];
@@ -260,7 +317,7 @@ static NSString * const USER_FILE = @"/userData";
     
     
     NSMutableArray *allTasks = [NSMutableArray new];
-    for (SCHCourse *course in courses) {
+    for (SCHCourse *course in _courses) {
         for (SCHTask *task in course.tasks) {
             [allTasks addObject:task];
         }
@@ -335,6 +392,8 @@ static NSString * const USER_FILE = @"/userData";
 //Returns true if given valid input, false if not
 -(BOOL)saveUsername:(NSString *)username andPassword:(NSString *)password
 {
+    _username = username;
+    _password = password;
     if (username == nil || password == nil) {
         //archive an empty array
         [NSKeyedArchiver archiveRootObject:[NSArray new] toFile:[self pathForUserFile]];
@@ -355,7 +414,12 @@ static NSString * const USER_FILE = @"/userData";
 -(void)updateDidFinishWithCourseList:(NSMutableArray *)updatedCourseList
 {
     [NSKeyedArchiver archiveRootObject:updatedCourseList toFile:[self pathForCourseFile]];
-    courses = updatedCourseList;
+    _courses = updatedCourseList;
+    
+    [SCHAlarmSetter setAlarmsForCourseList:updatedCourseList];
+    
+    authenticated = YES;
+    
     [self loadTasksIntoSeparatedTaskLists];
     [self.tableView reloadData];
     NSLog(@"Woo finished");
@@ -363,6 +427,9 @@ static NSString * const USER_FILE = @"/userData";
 
 -(void)updateFailedWithError:(NSInteger)result
 {
+    if (result == WRONG_CREDENTIALS_ERROR) {
+        [self setLoggedOut];
+    }
     NSLog(@"Update failed");
 }
 
@@ -371,6 +438,30 @@ static NSString * const USER_FILE = @"/userData";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - Segues
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+    if (![segue.destinationViewController isKindOfClass:[SCHScholarWebViewController class]]) {
+        SCHSettingsViewController *destination = ((UINavigationController*)segue.destinationViewController).topViewController;
+        destination.courses = _courses;
+        return;
+    }
+    SCHScholarWebViewController *destination = segue.destinationViewController;
+    SCHTaskViewCell *cell = (SCHTaskViewCell *) [self.tableView cellForRowAtIndexPath:path];
+    destination.taskUrl = cell.task.url;
+    destination.username = _username;
+    destination.password = _password;
+    destination.task = cell.task;
+    destination.authenticated = authenticated;
+}
+
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue
+{
+}
+
+
 
 #pragma mark - Table view data source
 
@@ -393,6 +484,9 @@ static NSString * const USER_FILE = @"/userData";
             break;
         case DUE_FAR_SECTION:
             return tasksDueFarFromNow.count;
+            break;
+        case EMPTY_LIST_HEADER:
+            return 0;
             break;
         default:
             return 0;
@@ -433,11 +527,12 @@ static NSString * const USER_FILE = @"/userData";
         formattedDueDate = @"N/A";
     }
     
-    
+    cell.task = task;
     cell.taskName.text = task.taskName;
     cell.courseName.text = task.courseName;
     cell.dueDate.text = formattedDueDate;
     
+    //[cell.dueDate addObserver:cell forKeyPath:@"text" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     
     // Configure the cell...
     
@@ -460,6 +555,18 @@ static NSString * const USER_FILE = @"/userData";
             break;
         case DUE_FAR_SECTION:
             header = [[SCHHeaderDueFarView alloc] initWithFrame:tableView.frame];
+            break;
+        case EMPTY_LIST_HEADER:
+            header = [[SCHHeaderView alloc] initWithFrame:tableView.frame];
+            if (loggingIn) {
+                [header setText:@"Logging in..."];
+            }
+            else if (!isLoggedIn) {
+                [header setText:@"Not logged in"];
+            }
+            else {
+                [header setText:@"No assignments due"];
+            }
             break;
         default:
             header = [[SCHHeaderView alloc] initWithFrame:tableView.frame];
@@ -505,12 +612,24 @@ static NSString * const USER_FILE = @"/userData";
                 return SECTION_HEIGHT;
             }
             break;
+        case EMPTY_LIST_HEADER:
+            if ([self p_noTasksDue]) {
+                return SECTION_HEIGHT;
+            }
+            else {
+                return 0;
+            }
         default:
             return 0;
             break;
     }
 }
 
+
+-(BOOL)p_noTasksDue
+{
+    return tasksDueToday.count == 0 && tasksDueThisWeek.count == 0 && tasksDueNextWeek.count == 0 && tasksDueFarFromNow.count == 0;
+}
 
 /*
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -544,6 +663,43 @@ static NSString * const USER_FILE = @"/userData";
         emptySection.backgroundColor = [UIColor clearColor];
     }
     return emptySection;
+}
+
+# pragma mark - Setting/Removing Observers
+- (void)tableView:(UITableView *)tableView willDisplayCell:(SCHTaskViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell.dueDate addObserver:cell forKeyPath:@"text" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+    
+    [cell colorCell];
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SCHTaskViewCell *taskCell = (SCHTaskViewCell*) cell;
+    @try {
+        [taskCell.dueDate removeObserver:cell forKeyPath:@"text"];
+    }
+    @catch(id anException) {
+        //no observer attached, do nothing
+    }
+    @finally {
+        
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    for (SCHTaskViewCell *cell in self.tableView.visibleCells) {
+        @try {
+            [cell.dueDate removeObserver:cell forKeyPath:@"text"];
+        }
+        @catch(id anException) {
+            //no observer attached, do nothing
+        }
+        @finally {
+            
+        }
+    }
 }
 
 /*

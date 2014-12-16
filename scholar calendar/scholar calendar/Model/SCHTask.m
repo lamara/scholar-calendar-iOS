@@ -23,6 +23,7 @@
         [self setTaskName:taskName];
         [self setCourseName:courseName];
         [self setDueDate:[self parseDueDateString:dueDateString]];
+        [self setShouldSetAlarm:YES];
     }
     return self;
 }
@@ -34,6 +35,7 @@
         [self setTaskName:taskName];
         [self setCourseName:courseName];
         [self setDueDate:dueDate];
+        [self setShouldSetAlarm:YES];
     }
     return self;
 }
@@ -45,15 +47,23 @@
         self.taskName = [aDecoder decodeObjectForKey:@"taskName"];
         self.courseName = [aDecoder decodeObjectForKey:@"courseName"];
         self.dueDate = [aDecoder decodeObjectForKey:@"dueDate"];
+        self.notificaion = [aDecoder decodeObjectForKey:@"notification"];
+        self.shouldSetAlarm = [[aDecoder decodeObjectForKey:@"shouldSetAlarm"] boolValue];
+        self.url = [aDecoder decodeObjectForKey:@"url"];
     }
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder
+
+
 {
     [aCoder encodeObject:self.taskName forKey:@"taskName"];
     [aCoder encodeObject:self.courseName forKey:@"courseName"];
     [aCoder encodeObject:self.dueDate forKey:@"dueDate"];
+    [aCoder encodeObject:self.notificaion forKey:@"notification"];
+    [aCoder encodeObject:[NSNumber numberWithBool:self.shouldSetAlarm] forKey:@"shouldSetAlarm"];
+    [aCoder encodeObject:self.url forKey:@"url"];
 }
 
 //Compares based on two task object's dueDates. Is nil-safe, any nil due dates will always be greater

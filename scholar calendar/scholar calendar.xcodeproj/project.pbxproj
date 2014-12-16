@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		5809E398187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5809E397187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m */; };
+		5873F8251A3D0607005D9C55 /* SCHAlarmSetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5873F8241A3D0607005D9C55 /* SCHAlarmSetter.m */; };
+		5873F82A1A3D25A0005D9C55 /* AGPushNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5873F8281A3D25A0005D9C55 /* AGPushNoteView.m */; };
+		5873F82B1A3D25A0005D9C55 /* AGPushNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5873F8291A3D25A0005D9C55 /* AGPushNoteView.xib */; };
+		5873F82F1A3D391C005D9C55 /* SCHTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5873F82D1A3D391C005D9C55 /* SCHTaskViewController.m */; };
+		5873F8371A3D6A9C005D9C55 /* SCHScholarWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5873F8361A3D6A9C005D9C55 /* SCHScholarWebViewController.m */; };
 		587F47A71879708C0013EC6E /* SCHTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47A61879708C0013EC6E /* SCHTask.m */; };
 		587F47AA187981DD0013EC6E /* SCHAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47A9187981DD0013EC6E /* SCHAssignment.m */; };
 		587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 587F47AC1879821B0013EC6E /* SCHQuiz.m */; };
@@ -16,6 +21,7 @@
 		58824190187934D70059380D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5882418F187934D70059380D /* Storyboard.storyboard */; };
 		5882419418793EFE0059380D /* SCHTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5882419318793EFE0059380D /* SCHTaskListViewController.m */; };
 		58824198187946550059380D /* SCHTaskViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58824197187946550059380D /* SCHTaskViewCell.m */; };
+		588BB4171A3FB0AB0017FB29 /* SCHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 588BB4161A3FB0AB0017FB29 /* SCHSettingsViewController.m */; };
 		58A4604618790CA200301D62 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604518790CA200301D62 /* UIKit.framework */; };
 		58A4604818790CA200301D62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604718790CA200301D62 /* Foundation.framework */; };
 		58A4604A18790CA200301D62 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A4604918790CA200301D62 /* CoreGraphics.framework */; };
@@ -53,6 +59,15 @@
 /* Begin PBXFileReference section */
 		5809E396187D1D9E00AE7F86 /* SCHHeaderDueTodayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHHeaderDueTodayView.h; sourceTree = "<group>"; };
 		5809E397187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHHeaderDueTodayView.m; sourceTree = "<group>"; };
+		5873F8231A3D0607005D9C55 /* SCHAlarmSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHAlarmSetter.h; sourceTree = "<group>"; };
+		5873F8241A3D0607005D9C55 /* SCHAlarmSetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHAlarmSetter.m; sourceTree = "<group>"; };
+		5873F8271A3D25A0005D9C55 /* AGPushNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPushNoteView.h; sourceTree = "<group>"; };
+		5873F8281A3D25A0005D9C55 /* AGPushNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPushNoteView.m; sourceTree = "<group>"; };
+		5873F8291A3D25A0005D9C55 /* AGPushNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGPushNoteView.xib; sourceTree = "<group>"; };
+		5873F82C1A3D391C005D9C55 /* SCHTaskViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = SCHTaskViewController.h; sourceTree = "<group>"; };
+		5873F82D1A3D391C005D9C55 /* SCHTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTaskViewController.m; sourceTree = "<group>"; };
+		5873F8351A3D6A9C005D9C55 /* SCHScholarWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHScholarWebViewController.h; sourceTree = "<group>"; };
+		5873F8361A3D6A9C005D9C55 /* SCHScholarWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHScholarWebViewController.m; sourceTree = "<group>"; };
 		587F47A51879708C0013EC6E /* SCHTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHTask.h; sourceTree = "<group>"; };
 		587F47A61879708C0013EC6E /* SCHTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTask.m; sourceTree = "<group>"; };
 		587F47A8187981DD0013EC6E /* SCHAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHAssignment.h; sourceTree = "<group>"; };
@@ -68,6 +83,8 @@
 		5882419318793EFE0059380D /* SCHTaskListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTaskListViewController.m; sourceTree = "<group>"; };
 		58824196187946550059380D /* SCHTaskViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHTaskViewCell.h; sourceTree = "<group>"; };
 		58824197187946550059380D /* SCHTaskViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHTaskViewCell.m; sourceTree = "<group>"; };
+		588BB4151A3FB0AB0017FB29 /* SCHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHSettingsViewController.h; sourceTree = "<group>"; };
+		588BB4161A3FB0AB0017FB29 /* SCHSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHSettingsViewController.m; sourceTree = "<group>"; };
 		58A4604218790CA200301D62 /* scholar calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "scholar calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A4604518790CA200301D62 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		58A4604718790CA200301D62 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -146,6 +163,25 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		5873F8221A3D0188005D9C55 /* Alarms */ = {
+			isa = PBXGroup;
+			children = (
+				5873F8231A3D0607005D9C55 /* SCHAlarmSetter.h */,
+				5873F8241A3D0607005D9C55 /* SCHAlarmSetter.m */,
+			);
+			name = Alarms;
+			sourceTree = "<group>";
+		};
+		5873F8261A3D25A0005D9C55 /* AGPushNote */ = {
+			isa = PBXGroup;
+			children = (
+				5873F8271A3D25A0005D9C55 /* AGPushNoteView.h */,
+				5873F8281A3D25A0005D9C55 /* AGPushNoteView.m */,
+				5873F8291A3D25A0005D9C55 /* AGPushNoteView.xib */,
+			);
+			path = AGPushNote;
+			sourceTree = "<group>";
+		};
 		587F47A4187970740013EC6E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +202,12 @@
 			children = (
 				5882419218793EFE0059380D /* SCHTaskListViewController.h */,
 				5882419318793EFE0059380D /* SCHTaskListViewController.m */,
+				5873F82C1A3D391C005D9C55 /* SCHTaskViewController.h */,
+				5873F82D1A3D391C005D9C55 /* SCHTaskViewController.m */,
+				5873F8351A3D6A9C005D9C55 /* SCHScholarWebViewController.h */,
+				5873F8361A3D6A9C005D9C55 /* SCHScholarWebViewController.m */,
+				588BB4151A3FB0AB0017FB29 /* SCHSettingsViewController.h */,
+				588BB4161A3FB0AB0017FB29 /* SCHSettingsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -225,6 +267,8 @@
 		58A4604B18790CA200301D62 /* scholar calendar */ = {
 			isa = PBXGroup;
 			children = (
+				5873F8261A3D25A0005D9C55 /* AGPushNote */,
+				5873F8221A3D0188005D9C55 /* Alarms */,
 				587F47A4187970740013EC6E /* Model */,
 				5885BE4B187EDCA3000B1148 /* Update */,
 				588241951879460B0059380D /* Views */,
@@ -327,7 +371,7 @@
 			name = "scholar calendarTests";
 			productName = "scholar calendarTests";
 			productReference = 58A4606218790CA300301D62 /* scholar calendarTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -336,9 +380,19 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SCH;
-				LastTestingUpgradeCheck = 0510;
+				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Alex Lamar";
+				TargetAttributes = {
+					58A4604118790CA200301D62 = {
+						DevelopmentTeam = L775D23N3K;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 58A4603D18790CA200301D62 /* Build configuration list for PBXProject "scholar calendar" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -363,6 +417,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5873F82B1A3D25A0005D9C55 /* AGPushNoteView.xib in Resources */,
 				58A4605018790CA200301D62 /* InfoPlist.strings in Resources */,
 				58A4605818790CA300301D62 /* Default.png in Resources */,
 				58A4605A18790CA300301D62 /* Default@2x.png in Resources */,
@@ -404,6 +459,7 @@
 			files = (
 				58A4605218790CA200301D62 /* main.m in Sources */,
 				58A4605618790CA200301D62 /* SCHAppDelegate.m in Sources */,
+				5873F82A1A3D25A0005D9C55 /* AGPushNoteView.m in Sources */,
 				5882419418793EFE0059380D /* SCHTaskListViewController.m in Sources */,
 				58824198187946550059380D /* SCHTaskViewCell.m in Sources */,
 				587F47A71879708C0013EC6E /* SCHTask.m in Sources */,
@@ -411,6 +467,9 @@
 				587F47AD1879821B0013EC6E /* SCHQuiz.m in Sources */,
 				587F47B0187984440013EC6E /* SCHCourse.m in Sources */,
 				5881B76C187C40BE0001145A /* SCHHeaderView.m in Sources */,
+				588BB4171A3FB0AB0017FB29 /* SCHSettingsViewController.m in Sources */,
+				5873F82F1A3D391C005D9C55 /* SCHTaskViewController.m in Sources */,
+				5873F8251A3D0607005D9C55 /* SCHAlarmSetter.m in Sources */,
 				5809E398187D1D9E00AE7F86 /* SCHHeaderDueTodayView.m in Sources */,
 				58D6EEC3187D3A4900AB8745 /* SCHHeaderDueThisWeekView.m in Sources */,
 				58D6EEC7187D3CB000AB8745 /* SCHHeaderDueNextWeekView.m in Sources */,
@@ -419,6 +478,7 @@
 				58D974C7187F19F00093A3F0 /* TFHpple.m in Sources */,
 				58D974C8187F19F00093A3F0 /* TFHppleElement.m in Sources */,
 				58D974CB187F1A140093A3F0 /* XPathQuery.m in Sources */,
+				5873F8371A3D6A9C005D9C55 /* SCHScholarWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +584,7 @@
 				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "scholar calendar/scholar calendar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2;
@@ -539,6 +600,7 @@
 				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "scholar calendar/scholar calendar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2;

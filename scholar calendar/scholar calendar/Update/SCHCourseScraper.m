@@ -27,7 +27,7 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     NSString *semester = [self getCurrentSemester];
     NSLog(@"Semseter: %@", semester);
     
-    NSArray *retrievedCourses = [self retrieveCoursesFromMainPage:mainPage forSemester:semester];
+    NSArray *retrievedCourses = [self retrieveCoursesFromMainPage:mainPage forSemester:semester intoCourseList:courseList];
     
     [self retrieveTasksIntoCourseList:retrievedCourses];
     [courseList removeAllObjects];
@@ -35,7 +35,7 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     return true;
 } 
 
-+(NSArray *)retrieveCoursesFromMainPage:(NSData *)mainPage forSemester:(NSString *)semester
++(NSArray *)retrieveCoursesFromMainPage:(NSData *)mainPage forSemester:(NSString *)semester intoCourseList:(NSArray*)courseList
 {
     TFHpple *parser = [TFHpple hppleWithHTMLData:mainPage];
     NSArray *elements = [parser searchWithXPathQuery:@"//a[@id='addNewSiteLink']"];
@@ -45,12 +45,18 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     }
     NSString *membershipUrl = [[elements objectAtIndex:0] objectForKey:@"href"];
     NSLog(@"%@", membershipUrl);
-    return [self retrieveCoursesFromMembershipPage:[self parseScholarUrl:membershipUrl] forSemester:semester];
+    return [self retrieveCoursesFromMembershipPage:[self parseScholarUrl:membershipUrl] forSemester:semester intoCourseList:courseList];
 }
 
-+(NSArray *)retrieveCoursesFromMembershipPage:(NSData *)membershipPage forSemester:(NSString *)semester
++(NSArray *)retrieveCoursesFromMembershipPage:(NSData *)membershipPage forSemester:(NSString *)semester intoCourseList:(NSArray*)courseList
 {
-    NSMutableArray *courseList = [NSMutableArray new];
+    NSMutableArray *courses;
+    if (courseList == nil) {
+        courses = [NSMutableArray new];
+    }
+    else {
+        courses = [NSMutableArray arrayWithArray:courseList];
+    }
     TFHpple *parser = [TFHpple hppleWithHTMLData:membershipPage];
     TFHppleElement *portletElement = [[parser searchWithXPathQuery:@"//div[@class='title']/a"] objectAtIndex:0];
     NSString *portletUrl = [portletElement objectForKey:@"href"];
@@ -79,12 +85,14 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
         NSString *url = [nameAndUrlElement objectForKey:@"href"];
         
         SCHCourse *course = [[SCHCourse alloc] initWithCourseName:name andMainUrl:url];
-        [courseList addObject:course];
+        if (![courses containsObject:course]) {
+            [courses addObject:course];
+        }
     }
-    if (courseList.count == 0) {
+    if (courses.count == 0) {
         NSLog(@"Failed to find any courses for the semester");
     }
-    return courseList;
+    return courses;
 }
 
 +(void)retrieveTasksIntoCourseList:(NSArray *)courseList
@@ -136,13 +144,18 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
         NSString *title = [(TFHppleElement *)[titles objectAtIndex:i] text];
         title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
+        NSString *urlString = [(TFHppleElement *)[titles objectAtIndex:i] objectForKey:@"href"];
+        NSURL *url = [[NSURL alloc] initWithString:urlString];
+        NSLog(@"URL STRING: %@", urlString);
+        
         NSString *dueDate = [(TFHppleElement *)[dueDates objectAtIndex:i] text];
         dueDate = [dueDate stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         NSLog(@"Title: %@", title);
         NSLog(@"due date: %@", dueDate);
         SCHAssignment *assignment = [[SCHAssignment alloc] initWithTaskName:title andCourseName:courseName andDueDateString:dueDate];
-        [course addTask:assignment];
+        assignment.url = url;
+        [course addTask:assignment]; //addTask: handles duplicate cases (refer to its method comments)
     }
 }
 
@@ -182,6 +195,10 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
         NSString *title = [[(TFHppleElement *)[quizData objectAtIndex:i] firstChild] text];
         title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
+        //There aren't individual quiz links (they are just javascript calls) so we just link to the overall portlet page
+        //(which encompases all of the quizes, but is still good enough)
+        NSURL *url = [[NSURL alloc] initWithString:portletUrl];
+        
         NSString *dueDate = [(TFHppleElement *)[quizData objectAtIndex:(i + 2)] text];
         dueDate = [dueDate stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
@@ -189,7 +206,8 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
         NSLog(@"due date: %@", dueDate);
         
         SCHQuiz *quiz = [[SCHQuiz alloc] initWithTaskName:title andCourseName:courseName andDueDateString:dueDate];
-        [course addTask:quiz];
+        quiz.url = url;
+        [course addTask:quiz]; //addTask: handles duplicate cases (refer to method comments)
     }
 }
 
@@ -260,6 +278,14 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     
 
     return mainPage;
+}
+
++(void)clearAllCookies
+{
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *each in cookieStorage.cookies) {
+        [cookieStorage deleteCookie:each];
+    }
 }
 
 +(NSString *)getCurrentSemester

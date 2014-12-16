@@ -11,10 +11,14 @@
 @interface SCHTask : NSObject <NSCoding>
 
 @property NSString *taskName;
-
 @property NSString *courseName;
-
 @property (copy) NSDate *dueDate;
+
+@property NSURL *url;
+
+@property UILocalNotification *notificaion;
+
+@property BOOL shouldSetAlarm;
 
 
 

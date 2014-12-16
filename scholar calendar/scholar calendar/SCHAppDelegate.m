@@ -7,6 +7,8 @@
 //
 
 #import "SCHAppDelegate.h"
+#import "AGPushNoteView.h"
+
 
 @implementation SCHAppDelegate
 
@@ -16,6 +18,18 @@
     NSLog(@"Time Zone: %@", [NSTimeZone timeZoneWithName:@"America/New_York"]);
     [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"America/New_York"]];
     
+    //Scedule periodic data fetches
+    int three_hours = 10800;
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:three_hours];
+    
+    
+    //Register notifications
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
     return YES;
 }
 
@@ -44,6 +58,19 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"Notification recievied");
+    
+    [AGPushNoteView showWithNotificationMessage:notification.alertBody];
+    //[application presentLocalNotificationNow:notification];
+}
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 @end

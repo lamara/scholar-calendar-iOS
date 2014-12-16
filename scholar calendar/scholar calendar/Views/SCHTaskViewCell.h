@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCHTask.h"
 
 @interface SCHTaskViewCell : UITableViewCell
+
+@property (weak, nonatomic) SCHTask *task;
+
+-(void)colorCell;
+
 @property (weak, nonatomic) IBOutlet UILabel *taskName;
 @property (weak, nonatomic) IBOutlet UILabel *courseName;
 @property (weak, nonatomic) IBOutlet UILabel *dueDate;

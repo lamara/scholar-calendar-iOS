@@ -10,6 +10,8 @@
 
 @interface SCHTaskListViewController : UITableViewController
 
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue;
+
 -(void)updateDidFinish;
 
 -(void)updateFailedWithError:(NSInteger)result;

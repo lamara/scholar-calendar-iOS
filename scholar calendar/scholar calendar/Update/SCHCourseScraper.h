@@ -10,6 +10,10 @@
 
 @interface SCHCourseScraper : NSObject
 
++(NSData *)logInToMainPageWithUsername:(NSString *)username Password:(NSString *)password;
+
 +(BOOL)retrieveCoursesIntoCourseList:(NSArray *)courseList withUsername:(NSString *)username Password:(NSString *)password;
+
++(void)clearAllCookies;
 
 @end

@@ -61,6 +61,7 @@
 //Adds a task to the course's internal task list. If a task is added that already exists in the task list
 //(as defined by isEqual), it will replace the existing task object. Because task equality is calculated regardless
 //of due date, this has the side-effect of updating a task's due date if an administrator decides to change it on Scholar
+
 -(void)addTask:(SCHTask *)task
 {
     for (int i = 0; i < [self.tasks count]; i++) {
@@ -71,6 +72,17 @@
         }
     }
     [self.tasks addObject:task];
+}
+
+-(BOOL)isEqual:(id)object
+{
+    SCHCourse *course = (SCHCourse*)object;
+    return [course.courseName isEqualToString:self.courseName];
+}
+
+-(NSUInteger)hash
+{
+    return [self.courseName hash];
 }
 
 @end
