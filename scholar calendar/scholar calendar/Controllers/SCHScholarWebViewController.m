@@ -9,6 +9,8 @@
 #import "SCHScholarWebViewController.h"
 #import "SCHCourseScraper.h"
 
+static const NSString* const PAGE_FETCH_FAILED = @"Failed to retrieve page from Scholar";
+
 @interface SCHScholarWebViewController ()
 
 @property BOOL isLoading;
@@ -68,12 +70,15 @@
         self.isLoading = YES;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_async(queue, ^{
-
-            [SCHCourseScraper logInToMainPageWithUsername:self.username Password:self.password]; //synchronous
+            NSError *error = nil;
+            [SCHCourseScraper logInToMainPageWithUsername:self.username Password:self.password error:&error]; //synchronous
             
             dispatch_queue_t main_queue = dispatch_get_main_queue();
             dispatch_async(main_queue, ^{
-                self.authenticated = YES;
+                if (error != nil) {
+                    [self failedToLoadWithError:error];
+                    return;
+                }
                 [self.webView loadRequest:request];
             });
         });
@@ -105,11 +110,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)failedToLoadWithError:(NSError*)error
+{
+    self.authenticated = NO;
+    self.isLoading = NO;
+    self.webView.hidden = YES;
+    self.label.text = PAGE_FETCH_FAILED;
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //int textFontSize = 100;
     //NSString *jsString = [[NSString alloc] initWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%d%%'",textFontSize];
     //[webView stringByEvaluatingJavaScriptFromString:jsString];
+    self.webView.hidden = NO;
+    self.authenticated = YES;
     self.isLoading = NO;
     self.label.text = self.task.courseName;
 }

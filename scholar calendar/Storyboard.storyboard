@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -90,7 +91,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Scholar Calendar" id="6ih-CJ-diO">
                         <barButtonItem key="leftBarButtonItem" title="Settings" id="vc3-Z4-6qm">
-                            <color key="tintColor" red="1" green="0.60942307240000004" blue="0.1032265642" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="ct7-KI-UHU" kind="presentation" id="2xh-tE-tSb"/>
                             </connections>
@@ -162,12 +163,12 @@
                             <mask key="constraints">
                                 <exclude reference="5Ff-e3-5zI"/>
                                 <exclude reference="teE-YO-lrX"/>
+                                <exclude reference="XyU-Mc-zg5"/>
+                                <exclude reference="fiq-LF-uIR"/>
                                 <exclude reference="1XM-dR-duk"/>
                                 <exclude reference="tyV-ml-Eyr"/>
                                 <exclude reference="bP0-tT-Odi"/>
                                 <exclude reference="kRK-zI-wWH"/>
-                                <exclude reference="XyU-Mc-zg5"/>
-                                <exclude reference="fiq-LF-uIR"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -180,18 +181,18 @@
                             <mask key="constraints">
                                 <include reference="5Ff-e3-5zI"/>
                                 <include reference="teE-YO-lrX"/>
+                                <include reference="XyU-Mc-zg5"/>
+                                <include reference="fiq-LF-uIR"/>
                                 <include reference="1XM-dR-duk"/>
                                 <include reference="tyV-ml-Eyr"/>
                                 <include reference="bP0-tT-Odi"/>
                                 <include reference="kRK-zI-wWH"/>
-                                <include reference="XyU-Mc-zg5"/>
-                                <include reference="fiq-LF-uIR"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="zzu-Hm-NEg">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="Svu-wE-3ZJ">
-                            <color key="tintColor" red="1" green="0.60942307240000004" blue="0.1032265642" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="0dy-Hb-XKu" kind="unwind" unwindAction="unwindToList:" id="M1U-Hd-y9O"/>
                             </connections>
@@ -262,8 +263,8 @@
                                 <exclude reference="XTK-p6-0hY"/>
                                 <exclude reference="ahw-VP-lKb"/>
                                 <exclude reference="vdh-Fr-Kgo"/>
-                                <exclude reference="DMv-Fg-HSe"/>
                                 <exclude reference="j9n-Ju-8qO"/>
+                                <exclude reference="DMv-Fg-HSe"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -275,8 +276,8 @@
                                 <include reference="XTK-p6-0hY"/>
                                 <include reference="ahw-VP-lKb"/>
                                 <include reference="vdh-Fr-Kgo"/>
-                                <include reference="DMv-Fg-HSe"/>
                                 <include reference="j9n-Ju-8qO"/>
+                                <include reference="DMv-Fg-HSe"/>
                             </mask>
                         </variation>
                     </view>
@@ -347,5 +348,5 @@
             </objects>
         </scene>
     </scenes>
-    <color key="tintColor" red="1" green="0.60942307244189164" blue="0.10322656421650955" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

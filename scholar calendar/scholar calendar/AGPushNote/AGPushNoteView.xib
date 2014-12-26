@@ -13,6 +13,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <items>
                 <barButtonItem style="done" systemItem="stop" id="pRY-8K-Lxt">
+                    <color key="tintColor" red="1" green="0.39365052516480326" blue="0.00066504108442033694" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="closeActionItem:" destination="dXp-SS-CuN" id="ToV-av-Emk"/>
                     </connections>

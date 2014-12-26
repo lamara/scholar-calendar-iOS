@@ -43,11 +43,15 @@
                 notification.fireDate = fireDate;
                 notification.alertBody = [NSString stringWithFormat:@"%@ is due at %@", task.taskName, stringFromDate];
                 notification.soundName = UILocalNotificationDefaultSoundName;
-                notification.applicationIconBadgeNumber = 1;
-                //[[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                notification.applicationIconBadgeNumber = 1; //setting to 1 so the user atleast gets some feedback,
+                                                             //we can't do anything more complex because we won't know what
+                                                             //the badge count will be in the future (so can't increment, etc)
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
                 
                 task.notificaion = notification;
                 NSLog(@"Alarm scheduled for %@", task.taskName);
+                
+                break;
             }
         }
     }

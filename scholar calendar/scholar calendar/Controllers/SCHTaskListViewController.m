@@ -21,6 +21,8 @@
 #import "SCHHeaderDueFarView.h"
 #import "SCHAlarmSetter.h"
 
+#import "AGPushNoteView.h"
+
 @interface SCHTaskListViewController ()
 
 @end
@@ -52,11 +54,11 @@ static const int DUE_NEXT_WEEK_SECTION = 2;
 static const int DUE_FAR_SECTION = 3;
 static const int EMPTY_LIST_HEADER = 4;
 
-static int const WRONG_CREDENTIALS_ERROR = 100;
-
 static NSString * const LOG_IN_TEXT = @"Log in to Scholar";
-static NSString * const LOG_IN_FAILED_TEXT = @"Failed to log in, try again";
+static NSString * const LOG_IN_CREDENTIALS_FAILED_TEXT = @"Invalid username or password";
+static NSString * const LOG_IN_NETWORK_FAILED_TEXT = @"Could not connect to Scholar";
 static NSString * const LOG_OUT_TEXT = @"Log out of Scholar?";
+static NSString * const NETWORK_FETCH_FAILED_TEXT = @"Update failed from Scholar";
 
 static NSString * const COURSES_FILE = @"/courses";
 static NSString * const USER_FILE = @"/userData";
@@ -191,7 +193,8 @@ static NSString * const USER_FILE = @"/userData";
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     
     dispatch_async(queue, ^{
-        BOOL success = [SCHCourseScraper retrieveCoursesIntoCourseList:_courses withUsername:username Password:password]; //synchronous
+        NSError *error = nil;
+        BOOL success = [SCHCourseScraper retrieveCoursesIntoCourseList:_courses withUsername:username Password:password error:&error]; //synchronous
         
         dispatch_queue_t main_queue = dispatch_get_main_queue();
         dispatch_async(main_queue, ^{
@@ -201,12 +204,7 @@ static NSString * const USER_FILE = @"/userData";
                 [self setLoggedIn];
             }
             else {
-                if (loggingIn) {
-                    //Tried to log in but had wrong credentials. Present the login screen again
-                    [self launchLoginDialogWithMessage:LOG_IN_FAILED_TEXT];
-                }
-                [self updateFailedWithError:WRONG_CREDENTIALS_ERROR];
-                loggingIn = NO;
+                [self updateFailedWithError:error.code];
             }
             [self performSelector:@selector(stopRefresh)];
         });
@@ -427,8 +425,25 @@ static NSString * const USER_FILE = @"/userData";
 
 -(void)updateFailedWithError:(NSInteger)result
 {
-    if (result == WRONG_CREDENTIALS_ERROR) {
+    if (result == SCHErrorLogInFailed) {
+        if (loggingIn) {
+            [self launchLoginDialogWithMessage:LOG_IN_CREDENTIALS_FAILED_TEXT];
+            loggingIn = false;
+        }
         [self setLoggedOut];
+    }
+    if (result == SCHErrorNetworkFailed) {
+        if (loggingIn) {
+            [self launchLoginDialogWithMessage:LOG_IN_NETWORK_FAILED_TEXT];
+            loggingIn = false;
+            [self setLoggedOut];
+        }
+        else {
+            if (isLoggedIn) {
+                //Stay logged in, but report error
+                [AGPushNoteView showWithNotificationMessage:NETWORK_FETCH_FAILED_TEXT];
+            }
+        }
     }
     NSLog(@"Update failed");
 }

@@ -16,11 +16,13 @@
 
 static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3A%2F%2Fscholar.vt.edu%2Fsakai-login-tool%2Fcontainer";
 
-+(BOOL)retrieveCoursesIntoCourseList:(NSMutableArray *)courseList withUsername:(NSString *)username Password:(NSString *)password
++(BOOL)retrieveCoursesIntoCourseList:(NSMutableArray *)courseList withUsername:(NSString *)username Password:(NSString *)password error:(NSError**)error
 {
-    NSData *mainPage = [self logInToMainPageWithUsername:username Password:password];
+    *error = nil;
+    
+    NSData *mainPage = [self logInToMainPageWithUsername:username Password:password error:error];
     if (mainPage == nil) {
-        //user failed to log in, going to need more robust error handling for this
+        //Failed to log in, check error code for details
         return false;
     }
     
@@ -228,14 +230,21 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
                                             kCFStringEncodingUTF8));
 }
 
-+(NSData *)logInToMainPageWithUsername:(NSString *)username Password:(NSString *)password
++(NSData *)logInToMainPageWithUsername:(NSString *)username Password:(NSString *)password error:(NSError**)error
 {
     NSMutableURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]
                                                     cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     
+    
     NSData *logInPage = [NSMutableData dataWithCapacity:0];
     
-    logInPage = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    logInPage = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
+    
+    if (logInPage == nil) {
+        //Failed to retrieve data from the server due to a network error
+        *error = [self createErrorForCode:SCHErrorNetworkFailed];
+        return nil;
+    }
     
     TFHpple *parser = [TFHpple hppleWithHTMLData:logInPage];
     
@@ -243,6 +252,7 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     if (hiddenElements.count == 0) {
         //If there are no hidden elements then we have already reached the main page because we logged in some time beforehand
         //if this is the case then just return the page.
+        *error = nil;
         return logInPage;
     }
     
@@ -269,8 +279,9 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     NSString *mainPageString = [[NSString alloc] initWithData:mainPage encoding:NSUTF8StringEncoding];
     
     if ([mainPageString rangeOfString:@"\"loggedIn\": true"].location == NSNotFound) {
-        //If this string is absent then the user failed to log in, TODO some error handling
+        //If this string is absent then the user failed to log in
         NSLog(@"user failed to log in");
+        *error = [self createErrorForCode:SCHErrorLogInFailed];
         return nil;
     }
     NSLog(@"User logged in");
@@ -278,6 +289,13 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     
 
     return mainPage;
+}
+
++(NSError*)createErrorForCode:(NSInteger)code
+{
+    NSString *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    NSError *error = [[NSError alloc] initWithDomain:appId code:code userInfo:nil];
+    return error;
 }
 
 +(void)clearAllCookies
