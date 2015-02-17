@@ -16,7 +16,7 @@
     if (self) {
         NSDate *today = [[NSDate alloc] init];
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *dayComponents = [calendar components:(NSWeekdayCalendarUnit | NSDayCalendarUnit) fromDate:today];
+        NSDateComponents *dayComponents = [calendar components:(NSMonthCalendarUnit | NSWeekdayCalendarUnit | NSDayCalendarUnit) fromDate:today];
         
         //this logic will give us the beginning day of the current calendar week
         NSInteger day = [dayComponents day];

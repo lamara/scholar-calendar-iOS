@@ -233,7 +233,7 @@ static NSString * const USER_FILE = @"/userData";
         NSString *password = [alertView textFieldAtIndex:1].text;
         [self saveUsername:username andPassword:password];
         [self refreshTriggeredWithUsername:username andPassword:password];
-        //[self setLoggedIn]; // we don't want to do this until we are confirmed logged in
+        //[self setLoggedIn]; // we actually don't want to do this until we are confirmed logged in
     }
 }
 
@@ -293,8 +293,8 @@ static NSString * const USER_FILE = @"/userData";
 -(void)loadTasksIntoSeparatedTaskLists
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-   // NSDate *today = [[NSDate alloc] init];
-    NSDate *today = [[NSDate alloc] initWithTimeIntervalSinceNow:-2592000];
+    NSDate *today = [[NSDate alloc] init];
+    //NSDate *today = [[NSDate alloc] initWithTimeIntervalSinceNow:-2592000];
     NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit
                                                         | NSDayCalendarUnit | NSHourCalendarUnit | NSWeekdayCalendarUnit
                                                         | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:today];

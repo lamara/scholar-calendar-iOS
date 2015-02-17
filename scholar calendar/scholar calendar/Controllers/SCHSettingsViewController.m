@@ -33,6 +33,19 @@
     self.alarmSwitch.on = [[defaults objectForKey:@"setAlarms"] boolValue];
     self.hoursField.text = [NSString stringWithFormat:@"%d", [[defaults objectForKey:@"hours"] intValue]];
     [self alarmSwitchToggled:self.alarmSwitch];
+    
+    
+    UIToolbar* keyboardToolbar = [[UIToolbar alloc] init];
+    [keyboardToolbar sizeToFit];
+    UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                      target:nil action:nil];
+    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                      target:self action:@selector(doneButtonPressed)];
+    doneBarButton.tintColor = [UIColor orangeColor];
+    keyboardToolbar.items = @[flexBarButton, doneBarButton];
+    self.hoursField.inputAccessoryView = keyboardToolbar;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,12 +73,29 @@
     [defaults synchronize];
 }
 - (IBAction)hourseFieldEdited:(id)sender {
+    if (self.hoursField.text.length == 0) {
+        self.hoursField.text = @"0";
+    }
     int value = [[self.hoursField text] intValue];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInt:value] forKey:@"hours"];
     [defaults synchronize];
+    
+    NSLog(@"Hours field edited");
+}
+- (IBAction)hoursFieldChanged:(id)sender {
+    NSLog(@"Hours field changed");
+    if (self.hoursField.text.length > 2) {
+        self.hoursField.text = [self.hoursField.text substringToIndex:2];
+    }
+    [UIView animateWithDuration:0.1 animations:^{
+        [self.hoursField.superview updateConstraintsIfNeeded];
+    }];
 }
 
+- (void)doneButtonPressed {
+    [self.view endEditing:YES];
+}
 /*
 #pragma mark - Navigation
 
