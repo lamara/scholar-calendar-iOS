@@ -32,7 +32,7 @@
     for (SCHCourse *course in courselist) {
         for (SCHTask *task in course.tasks) {
             if (task.shouldSetAlarm) {
-                if ([task.dueDate compare:[[NSDate date] dateByAddingTimeInterval:-2592000]] == NSOrderedAscending) {
+                if ([task.dueDate compare:[NSDate date]] == NSOrderedAscending) {
                     //The due date has already passed
                     continue;
                 }

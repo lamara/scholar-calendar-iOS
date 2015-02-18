@@ -34,6 +34,9 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     [self retrieveTasksIntoCourseList:retrievedCourses];
     [courseList removeAllObjects];
     [courseList addObjectsFromArray:retrievedCourses];
+    
+    [self clearAllCookies];
+    
     return true;
 } 
 
@@ -64,7 +67,23 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     NSString *portletUrl = [portletElement objectForKey:@"href"];
     
     NSData *portletPage = [self parseScholarUrl:portletUrl];
+    
+    //Need to change the page size, by default it limits the results to 20 (so if there are more than 20 courses they will get cut off)
+
     parser = [TFHpple hppleWithHTMLData:portletPage];
+    
+    TFHppleElement *pageSizeElement = [[parser searchWithXPathQuery:@"//form[@name='pagesizeForm']"] objectAtIndex:0];
+    TFHppleElement *tokenElement = [[pageSizeElement searchWithXPathQuery:@"//input[@name='sakai_csrf_token']"] objectAtIndex:0];
+    
+    NSString *pageSizeActionUrl = [pageSizeElement objectForKey:@"action"];
+    NSString *token = [tokenElement objectForKey:@"value"];
+
+    NSString *postString = [[NSString alloc] initWithFormat:@"eventSubmit_doChange_pagesize=changepagesize&selectPageSize=200&sakai_csrf_token=%@", token];
+    
+    portletPage = [self sendPostRequestForUrl:pageSizeActionUrl andPostString:postString]; //new page with the increased page size
+    
+    parser = [TFHpple hppleWithHTMLData:portletPage];
+    
     NSArray *courseElements = [parser searchWithXPathQuery:@"//tr"];
     for (TFHppleElement *element in courseElements) {
         NSArray *semesterElements = [element searchWithXPathQuery:@"//td[@headers='term']"];
@@ -268,6 +287,7 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     //the following post paramaters are all static except for the lt element, execution element and username/password
     NSString *postString = [[NSString alloc] initWithFormat:@"lt=%@&submit=_submit&_eventId=submit&execution=%@&username=%@&password=%@", ltValue, executionValue, username, password];
     
+    /*
     NSString *encodedPostString = [self encodeToPercentEscapeString:postString];//[postString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]];
@@ -275,6 +295,9 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     [request setHTTPBody:[NSData dataWithBytes:[encodedPostString UTF8String] length:strlen([encodedPostString UTF8String])]];
     
     NSData *mainPage = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    */
+    
+    NSData *mainPage = [self sendPostRequestForUrl:LOG_IN_URL andPostString:postString];
     
     NSString *mainPageString = [[NSString alloc] initWithData:mainPage encoding:NSUTF8StringEncoding];
     
@@ -289,6 +312,17 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
     
 
     return mainPage;
+}
+
++(NSData*)sendPostRequestForUrl:(NSString*)url andPostString:(NSString*)post
+{
+    NSString *encodedPostString = [self encodeToPercentEscapeString:post];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[NSData dataWithBytes:[encodedPostString UTF8String] length:strlen([encodedPostString UTF8String])]];
+    
+    return [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 }
 
 +(NSError*)createErrorForCode:(NSInteger)code
