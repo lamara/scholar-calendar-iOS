@@ -45,6 +45,7 @@
 		58D974C8187F19F00093A3F0 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974C6187F19F00093A3F0 /* TFHppleElement.m */; };
 		58D974CB187F1A140093A3F0 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974CA187F1A140093A3F0 /* XPathQuery.m */; };
 		EA8FAEE01A9516950031B132 /* SCHPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8FAEDF1A9516950031B132 /* SCHPersistenceManager.m */; };
+		EA8FAEE21A95249C0031B132 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8FAEE11A95249C0031B132 /* Icons.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		58D974CA187F1A140093A3F0 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		EA8FAEDE1A9516950031B132 /* SCHPersistenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHPersistenceManager.h; sourceTree = "<group>"; };
 		EA8FAEDF1A9516950031B132 /* SCHPersistenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHPersistenceManager.m; sourceTree = "<group>"; };
+		EA8FAEE11A95249C0031B132 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 				58A4605718790CA300301D62 /* Default.png */,
 				58A4605918790CA300301D62 /* Default@2x.png */,
 				58A4605B18790CA300301D62 /* Default-568h@2x.png */,
+				EA8FAEE11A95249C0031B132 /* Icons.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 			files = (
 				5873F82B1A3D25A0005D9C55 /* AGPushNoteView.xib in Resources */,
 				58A4605018790CA200301D62 /* InfoPlist.strings in Resources */,
+				EA8FAEE21A95249C0031B132 /* Icons.xcassets in Resources */,
 				58A4605818790CA300301D62 /* Default.png in Resources */,
 				58A4605A18790CA300301D62 /* Default@2x.png in Resources */,
 				58A4605C18790CA300301D62 /* Default-568h@2x.png in Resources */,
@@ -594,6 +598,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -610,6 +616,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "scholar calendar/scholar calendar-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;

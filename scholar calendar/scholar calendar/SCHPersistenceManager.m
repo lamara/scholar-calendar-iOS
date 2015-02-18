@@ -51,8 +51,6 @@ static NSString * const USER_FILE = @"/userData";
         return nil;
     }
     NSLog(@"username/password retrieved successfully from storage");
-    //_username = [userDataFromStorage objectAtIndex:0];
-    //_password = [userDataFromStorage objectAtIndex:1];
     return userDataFromStorage;
 }
 
@@ -61,8 +59,6 @@ static NSString * const USER_FILE = @"/userData";
 //Returns true if given valid input, false if not
 +(BOOL)saveUsername:(NSString *)username andPassword:(NSString *)password
 {
-    //_username = username;
-    //_password = password;
     if (username == nil || password == nil) {
         //archive an empty array
         [NSKeyedArchiver archiveRootObject:[NSArray new] toFile:[self pathForUserFile]];

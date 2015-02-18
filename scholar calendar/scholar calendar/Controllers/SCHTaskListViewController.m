@@ -347,50 +347,12 @@ static NSString * const USER_FILE = @"/userData";
     }]];
 }
 
--(NSString *)pathForCourseFile
-{
-    NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    NSString *path = nil;
-    if (pathArray.count != 0) {
-        path = [pathArray objectAtIndex:0];
-    }
-    path = [path stringByAppendingString:COURSES_FILE];
-    return path;
-}
-
--(NSString *)pathForUserFile
-{
-    NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    NSString *path = nil;
-    if (pathArray.count != 0) {
-        path = [pathArray objectAtIndex:0];
-    }
-    path = [path stringByAppendingString:USER_FILE];
-    return path;
-}
-
 //Returns true if given valid input, false if not
 -(BOOL)saveUsername:(NSString *)username andPassword:(NSString *)password
 {
     _username = username;
     _password = password;
-    if (username == nil || password == nil) {
-        //archive an empty array
-        [NSKeyedArchiver archiveRootObject:[NSArray new] toFile:[self pathForUserFile]];
-        NSLog(@"nil username/password, not saved");
-        return FALSE;
-    }
-    if (username.length == 0 || password.length == 0) {
-        [NSKeyedArchiver archiveRootObject:[NSArray new] toFile:[self pathForUserFile]];
-        NSLog(@"password/username length 0, not saved");
-        return FALSE;
-    }
-    NSArray *usernamePasswordData = [[NSArray alloc] initWithObjects:username, password, nil];
-    [NSKeyedArchiver archiveRootObject:usernamePasswordData toFile:[self pathForUserFile]];
-    NSLog(@"password saved");
-    return TRUE;
+    return [SCHPersistenceManager saveUsername:username andPassword:password];
 }
 
 -(void)updateDidFinishWithCourseList:(NSMutableArray *)updatedCourseList

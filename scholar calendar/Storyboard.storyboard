@@ -8,7 +8,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Scholar Calendar-->
+        <!--Scholar Alerts-->
         <scene sceneID="DLF-vZ-qrD">
             <objects>
                 <tableViewController id="e8o-LD-DNI" customClass="SCHTaskListViewController" sceneMemberID="viewController">
@@ -89,7 +89,7 @@
                             <outlet property="delegate" destination="e8o-LD-DNI" id="oKR-cG-Ulu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Scholar Calendar" id="6ih-CJ-diO">
+                    <navigationItem key="navigationItem" title="Scholar Alerts" id="6ih-CJ-diO">
                         <barButtonItem key="leftBarButtonItem" title="Settings" id="vc3-Z4-6qm">
                             <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -165,13 +165,13 @@
                             <mask key="constraints">
                                 <exclude reference="5Ff-e3-5zI"/>
                                 <exclude reference="teE-YO-lrX"/>
+                                <exclude reference="VM4-9w-CA4"/>
+                                <exclude reference="XyU-Mc-zg5"/>
+                                <exclude reference="fiq-LF-uIR"/>
                                 <exclude reference="1XM-dR-duk"/>
                                 <exclude reference="tyV-ml-Eyr"/>
                                 <exclude reference="bP0-tT-Odi"/>
                                 <exclude reference="kRK-zI-wWH"/>
-                                <exclude reference="VM4-9w-CA4"/>
-                                <exclude reference="XyU-Mc-zg5"/>
-                                <exclude reference="fiq-LF-uIR"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -184,13 +184,13 @@
                             <mask key="constraints">
                                 <include reference="5Ff-e3-5zI"/>
                                 <include reference="teE-YO-lrX"/>
+                                <include reference="VM4-9w-CA4"/>
+                                <include reference="XyU-Mc-zg5"/>
+                                <include reference="fiq-LF-uIR"/>
                                 <include reference="1XM-dR-duk"/>
                                 <include reference="tyV-ml-Eyr"/>
                                 <include reference="bP0-tT-Odi"/>
                                 <include reference="kRK-zI-wWH"/>
-                                <include reference="VM4-9w-CA4"/>
-                                <include reference="XyU-Mc-zg5"/>
-                                <include reference="fiq-LF-uIR"/>
                             </mask>
                         </variation>
                     </view>
