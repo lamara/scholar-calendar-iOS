@@ -44,6 +44,7 @@
 		58D974C7187F19F00093A3F0 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974C4187F19F00093A3F0 /* TFHpple.m */; };
 		58D974C8187F19F00093A3F0 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974C6187F19F00093A3F0 /* TFHppleElement.m */; };
 		58D974CB187F1A140093A3F0 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D974CA187F1A140093A3F0 /* XPathQuery.m */; };
+		EA8FAEE01A9516950031B132 /* SCHPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8FAEDF1A9516950031B132 /* SCHPersistenceManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,8 @@
 		58D974C6187F19F00093A3F0 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
 		58D974C9187F1A140093A3F0 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		58D974CA187F1A140093A3F0 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		EA8FAEDE1A9516950031B132 /* SCHPersistenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHPersistenceManager.h; sourceTree = "<group>"; };
+		EA8FAEDF1A9516950031B132 /* SCHPersistenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHPersistenceManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,8 +270,9 @@
 		58A4604B18790CA200301D62 /* scholar calendar */ = {
 			isa = PBXGroup;
 			children = (
-				5873F8261A3D25A0005D9C55 /* AGPushNote */,
 				5873F8221A3D0188005D9C55 /* Alarms */,
+				EA8FAEDC1A9516740031B132 /* Persistence */,
+				5873F8261A3D25A0005D9C55 /* AGPushNote */,
 				587F47A4187970740013EC6E /* Model */,
 				5885BE4B187EDCA3000B1148 /* Update */,
 				588241951879460B0059380D /* Views */,
@@ -332,6 +336,15 @@
 				58D974CA187F1A140093A3F0 /* XPathQuery.m */,
 			);
 			path = XPath;
+			sourceTree = "<group>";
+		};
+		EA8FAEDC1A9516740031B132 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				EA8FAEDE1A9516950031B132 /* SCHPersistenceManager.h */,
+				EA8FAEDF1A9516950031B132 /* SCHPersistenceManager.m */,
+			);
+			name = Persistence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,6 +473,7 @@
 				58A4605218790CA200301D62 /* main.m in Sources */,
 				58A4605618790CA200301D62 /* SCHAppDelegate.m in Sources */,
 				5873F82A1A3D25A0005D9C55 /* AGPushNoteView.m in Sources */,
+				EA8FAEE01A9516950031B132 /* SCHPersistenceManager.m in Sources */,
 				5882419418793EFE0059380D /* SCHTaskListViewController.m in Sources */,
 				58824198187946550059380D /* SCHTaskViewCell.m in Sources */,
 				587F47A71879708C0013EC6E /* SCHTask.m in Sources */,

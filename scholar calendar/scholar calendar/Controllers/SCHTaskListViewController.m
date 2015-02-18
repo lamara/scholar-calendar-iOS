@@ -21,6 +21,8 @@
 #import "SCHHeaderDueFarView.h"
 #import "SCHAlarmSetter.h"
 
+#import "SCHPersistenceManager.h"
+
 #import "AGPushNoteView.h"
 
 @interface SCHTaskListViewController ()
@@ -250,42 +252,24 @@ static NSString * const USER_FILE = @"/userData";
 
 -(BOOL)readUsernamePasswordFromStorage
 {
-    NSArray *userDataFromStorage = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForUserFile]];
-    if (![userDataFromStorage isKindOfClass:[NSArray class]]) {
-        NSLog(@"username/password not stored as an array in storage, failed to retrieve data");
-        return FALSE;
+    NSArray *userData = [SCHPersistenceManager readUsernamePasswordFromStorage];
+    if (userData != nil) {
+        _username = [userData objectAtIndex:0];
+        _password = [userData objectAtIndex:1];
+        return YES;
     }
-    if (userDataFromStorage == nil || userDataFromStorage.count != 2) {
-        //an empty array of count 0 is used to represent no user
-        NSLog(@"username/password was not present in storage");
-        return FALSE;
+    else {
+        return NO;
     }
-    NSLog(@"username/password retrieved successfully from storage");
-    _username = [userDataFromStorage objectAtIndex:0];
-    _password = [userDataFromStorage objectAtIndex:1];
-    return TRUE;
 }
 
 
 //Not sure if keyedarchiver is thread safe so call this from the main thread from now
 -(void)readDataFromStorage
 {
-    NSMutableArray *courseListFromStorage = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForCourseFile]];
-    if (![courseListFromStorage isKindOfClass:[NSArray class]]) {
-        NSLog(@"Course data not stored as an array in storage, failed to retrieve data");
-        return;
-    }
-    if (courseListFromStorage == nil) {
-        NSLog(@"Course list was not present in storage");
-        return;
-    }
-    NSLog(@"Courses retrieved successfully from storage");
-    _courses = courseListFromStorage;
-    NSLog(@"%d", _courses.count);
-    for (SCHCourse *course in _courses) {
-        for (SCHTask *task in course.tasks) {
-            NSLog(@"Taskname: %@    dueDate: %@", task.taskName, task.dueDate);
-        }
+    NSMutableArray *courseListFromStorage = [SCHPersistenceManager readDataFromStorage];
+    if (courseListFromStorage != nil) {
+        _courses = courseListFromStorage;
     }
 }
 
@@ -411,7 +395,7 @@ static NSString * const USER_FILE = @"/userData";
 
 -(void)updateDidFinishWithCourseList:(NSMutableArray *)updatedCourseList
 {
-    [NSKeyedArchiver archiveRootObject:updatedCourseList toFile:[self pathForCourseFile]];
+    [SCHPersistenceManager saveCoursesToStorage:updatedCourseList];
     _courses = updatedCourseList;
     
     [SCHAlarmSetter setAlarmsForCourseList:updatedCourseList];

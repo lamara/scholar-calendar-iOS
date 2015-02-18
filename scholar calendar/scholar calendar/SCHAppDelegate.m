@@ -8,7 +8,8 @@
 
 #import "SCHAppDelegate.h"
 #import "AGPushNoteView.h"
-
+#import "SCHCourseScraper.h"
+#import "SCHPersistenceManager.h"
 
 @implementation SCHAppDelegate
 
@@ -73,6 +74,33 @@
 
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    NSLog(@"Performing background fetch");
+    
+    NSArray *userData = [SCHPersistenceManager readUsernamePasswordFromStorage];
+    if (userData == nil) {
+        NSLog(@"Could not retrieve username/password from storage");
+        completionHandler(UIBackgroundFetchResultNewData);
+        return;
+    }
+    NSString *username = [userData objectAtIndex:0];
+    NSString *password = [userData objectAtIndex:1];
+    
+    NSMutableArray *newCourseList = [[NSMutableArray alloc] init];
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_async(queue, ^{
+        NSError *error = nil;
+        BOOL success = [SCHCourseScraper retrieveCoursesIntoCourseList:newCourseList withUsername:username Password:password error:&error]; //synchronous
+        
+        dispatch_queue_t main_queue = dispatch_get_main_queue();
+        dispatch_async(main_queue, ^{
+            if (success) {
+                [SCHPersistenceManager saveCoursesToStorage:newCourseList];
+            }
+        });
+    });
+
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
