@@ -35,6 +35,7 @@
     }
     NSRange orangeRange;
     if ([date isEqualToString:@"N/A"]) {
+        orangeRange.location = 0;
         orangeRange.length = 3;
     }
     else {

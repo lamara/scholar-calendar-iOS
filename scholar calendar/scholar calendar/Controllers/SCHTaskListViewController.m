@@ -21,6 +21,8 @@
 #import "SCHHeaderDueFarView.h"
 #import "SCHAlarmSetter.h"
 
+#import "SCHTaskViewCell.h"
+
 #import "SCHPersistenceManager.h"
 
 #import "AGPushNoteView.h"
@@ -416,6 +418,17 @@ static NSString * const USER_FILE = @"/userData";
     destination.password = _password;
     destination.task = cell.task;
     destination.authenticated = authenticated;
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([sender isKindOfClass:SCHTaskViewCell.class]) {
+        if ([_username isEqualToString:@"student"] && [_password isEqualToString:@"stpassWD"]) {
+            [sender setSelected:NO];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue

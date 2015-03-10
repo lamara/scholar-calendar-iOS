@@ -20,6 +20,14 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
 {
     *error = nil;
     
+    if ([username isEqualToString:@"student"] && [password isEqualToString:@"stpassWD"]) {
+        sleep(1);
+        
+        [self loadDefaultIntoCourseList:courseList];
+        
+        return YES;
+    }
+    
     NSData *mainPage = [self logInToMainPageWithUsername:username Password:password error:error];
     if (mainPage == nil) {
         //Failed to log in, check error code for details
@@ -359,6 +367,36 @@ static NSString * const LOG_IN_URL = @"https://auth.vt.edu/login?service=https%3
         return [[NSString alloc] initWithFormat:@"Spring %d", [components year]];
     }
 }
+
+
+
++(void)loadDefaultIntoCourseList:(NSMutableArray *)courseList
+{
+    [courseList removeAllObjects];
+    
+    SCHCourse *course1 = [[SCHCourse alloc] initWithCourseName:@"EngE 1104" andMainUrl:nil];
+    SCHCourse *course2 = [[SCHCourse alloc] initWithCourseName:@"ENGL 1246" andMainUrl:nil];
+    [courseList addObject:course1];
+    [courseList addObject:course2];
+    
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:GregorianCalendar];
+    NSDateComponents *components = [calendar components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:date];
+    
+    NSDate *today = [[[NSCalendar alloc] initWithCalendarIdentifier:GregorianCalendar] dateFromComponents:components];
+    NSDate *laterToday = [today dateByAddingTimeInterval:57600];
+    
+    SCHTask *task1 = [[SCHTask alloc] initWithTaskName:@"Homework 1" andCourseName:@"EngE 1104" andDueDate:[laterToday dateByAddingTimeInterval:(86400)]];
+    
+    SCHTask *task2 = [[SCHTask alloc] initWithTaskName:@"Homework 2" andCourseName:@"EngE 1104" andDueDate:[laterToday dateByAddingTimeInterval:(86400 * 10)]];
+    
+    SCHTask *task3 = [[SCHTask alloc] initWithTaskName:@"Writing assignment" andCourseName:@"ENGL 1246" andDueDate:[laterToday dateByAddingTimeInterval:(86400 * 4)]];//[NSDate dateWithTimeIntervalSinceNow:(3600 * 5)]];
+    
+    [course1 addTask:task1];
+    [course1 addTask:task2];
+    [course2 addTask:task3];
+}
+
 
 
 

@@ -44,6 +44,8 @@ static const NSString* const PAGE_FETCH_FAILED = @"Failed to retrieve page from 
                                metrics:nil
                                views:NSDictionaryOfVariableBindings(subview)]];
     */
+    self.authenticated = false;
+    
     self.webView.delegate = self;
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:self.taskUrl];
     if (self.authenticated) {
